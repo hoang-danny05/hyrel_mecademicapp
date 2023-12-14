@@ -1,6 +1,9 @@
 import mecademicpy.robot as MecademicRobot
+# import mecademicpy.robot_classes
 
 class RobotHandler: 
+    connected: bool
+    robot: MecademicRobot.Robot
 
     def __init__(self):
         self.robot = MecademicRobot.Robot()

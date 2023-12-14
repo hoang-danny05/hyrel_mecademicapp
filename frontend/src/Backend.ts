@@ -27,9 +27,17 @@ class API {
         })
     }
 
-    async post(path: string, message: Object) : Promise<Object> {
+    async post(path: string, message: object) : Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
-            fetch(this.url.concat(path), {method: "POST"})
+            fetch(this.url.concat(path), 
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(message)
+                }
+            )
                 .then(response => response.json()
                     .then(json => resolve(json))
                 )

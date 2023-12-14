@@ -79,14 +79,14 @@ function moveLinRelWrf(pos: JoystickPosition) {
   });
 }
 
-function testBackend() {
+function testGet() {
   fetch("http://localhost:8000")
   .then(res => res.json().then(json => console.log(json)))
   .catch(err => console.error(err))
 }
 
-async function testAPI() {
-  console.log(await api.post("/asdf", {}))
+async function testPost() {
+  console.log(await api.post("/", {"name": "string"}))
 }
 
 function App() {
@@ -142,8 +142,8 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <button onClick={testBackend}>Test Backend</button>
-        <button onClick={testAPI}>Test API</button>
+        <button onClick={testGet}>Test Get</button>
+        <button onClick={testPost}>Test Post</button>
         <button onClick={getRobotState}>Get Robot State</button>
         <button onClick={attemptReconnect}>Try Reconnecting</button>
         <button onClick={activate}>Activate and Home</button>
