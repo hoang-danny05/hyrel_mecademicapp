@@ -13,6 +13,7 @@ class RobotHandler:
     
     def get_state(self):
         return self.connected
+        #assumes the robot can't disconnect once connected
     
     def attempt_reconnect(self):
         self.robot = MecademicRobot.Robot()
@@ -26,5 +27,8 @@ class RobotHandler:
 
     def activate(self):
         self.robot.ActivateAndHome()
+
+    def MoveLinRelWrf(x,y,z,rx,ry,rz):
+        self.robot.MoveLinRelWrf(x, y, z, rx, ry, rz)
         
     

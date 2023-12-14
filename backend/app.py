@@ -47,6 +47,19 @@ def activate():
         return response
     robot.activate()
     return "bum ba dum"
+
+@app.route("/control", methods=["POST"])
+def move_robot():
+    @after_this_request
+    def add_headers(response):
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+    coordinates = json.loads(request.data)
+    try:
+        robot.MoveLinRelWrf(coordinates.values, 0,0,0)
+    except Exception:
+        return jsonify({"error": "Error controlling the robot", "debug": coordinates.values})
+    
     
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
