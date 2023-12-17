@@ -31,12 +31,12 @@ async def root(item: DebugModel):
     ''' 
     return {"test": "success", "your_name": item.name}
 
+@app.get("/robotstate")
 async def robot_state():
     '''
     returns whether or not the robot is connected
     
-    :returns: object of the robot's state
-
+    :returns: object of the robot's state <br />
     :rtype: {status: boolean}
     '''
     return {"status": robot.connected}
