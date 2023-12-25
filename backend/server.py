@@ -43,4 +43,9 @@ async def robot_state():
 
 @app.post("/command")
 async def send_command(command: str):
+    """
+    Returns a json object if there's an error in the request <br />
+    {"error": <error-message>}
+    WIP implementation
+    """
     return {"reflection": command}

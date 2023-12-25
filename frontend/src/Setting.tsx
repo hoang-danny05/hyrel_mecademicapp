@@ -1,6 +1,6 @@
 import './App.css'
 
-function Setting(props) {
+function Setting() {
 
 }
 
