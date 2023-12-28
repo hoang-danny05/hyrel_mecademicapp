@@ -7,8 +7,12 @@ type SettingProps<T> = {
     setValue: React.Dispatch<React.SetStateAction<T>>
 }
 
+/**
+ * A setting that lets the user input a string as a setting
+ * @param props requires an ID, name, and a set function from setState()
+ * @returns the setting element
+ */
 function Setting(props: SettingProps<string>): React.JSX.Element {
-
     return (
         <div className="setting">
             <label htmlFor={props.uniqueID}>{props.name}</label>
@@ -21,6 +25,7 @@ function Setting(props: SettingProps<string>): React.JSX.Element {
         </div>
     )
 }
+
 
 // function numberInput()
 
