@@ -26,7 +26,20 @@ function Setting(props: SettingProps<string>): React.JSX.Element {
     )
 }
 
-
+function IntSetting(props: SettingProps<number>): React.JSX.Element {
+    return (
+        <div className="setting">
+            <label htmlFor={props.uniqueID}>{props.name}</label>
+            <input type="text" id={props.uniqueID} 
+            onChange={
+                (event: React.ChangeEvent<HTMLInputElement>) => {
+                    props.setValue(Number.parseInt(event.target.value))
+                }
+            }/>
+        </div>
+    )
+}
 // function numberInput()
 
 export default Setting
+export { IntSetting }
