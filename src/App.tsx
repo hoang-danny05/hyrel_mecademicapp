@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
-import API from "./Backend.ts"
+// import API from "./Backend.ts"
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Setting from "./Setting.tsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./Layout.tsx";
+import Grid from "./routes/Grid.tsx"
+import None from "./routes/None.tsx"
 
 type JoystickData = {
   x: String;
@@ -73,6 +77,16 @@ function App() {
 
   return (
     <>
+      <BrowserRouter>
+        <Routes>
+          {/* parent route that appends a / for no reason */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Setting uniqueID="two" name="test" setValue={setName} />} />
+            <Route path="grid" element={<Grid />} />
+            <Route path="*" element={<None />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

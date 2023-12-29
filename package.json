@@ -7,9 +7,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test" : "jest"
+    "test": "jest"
   },
-  "jest" : {
+  "jest": {
     "transform": {
       "^.+\\.[t|j]sx?$": "babel-jest"
     }
@@ -18,7 +18,8 @@
     "@types/jest": "^29.5.11",
     "queue-typescript": "^1.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
