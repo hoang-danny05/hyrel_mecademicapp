@@ -2,11 +2,16 @@
     box-sizing: border-box;
 }
 
+nav {
+    /* background-color: blue; */
+}
+
 ul {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 3rem;
 }
 
 li {
