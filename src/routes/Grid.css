@@ -1,13 +1,24 @@
 div.robot_layout {
+    /* outer */
+    height: 300px;
+    width: 100%;
+    /* inner */
     display: grid;
-}
-
-.robot_layout .space {
-    border: 1px solid white;
     grid-template-columns: 
         1fr 2fr 1fr
         ;
     grid-template-rows: 
-        1fr 2fr 1fr
+        1fr 2fr 1fr 
         ;
+    gap: 1rem;
+}
+
+.robot_layout .space {
+    /* outer position */
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+    justify-self: center;
+    align-self: center;
+    /* inner elements */
 }
