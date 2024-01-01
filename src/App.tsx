@@ -4,7 +4,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Layout from "./Layout.tsx";
 //pages
-import Homepage from "./Homepage.tsx";
+import Homepage from "./routes/Homepage.tsx";
 import Grid from "./routes/Grid.tsx"
 import None from "./routes/None.tsx"
 

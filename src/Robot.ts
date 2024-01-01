@@ -1,5 +1,5 @@
 import { Socket } from "node:net"
-import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./assets/Commands";
+import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
 import { Queue } from 'queue-typescript';
 
 class Robot {

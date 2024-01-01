@@ -1,9 +1,11 @@
 import "../App.css"
 import "./Grid.css"
+import { Button } from "@/components/ui/button"
 
 const Grid = () => {
     return (
         <>
+        <Button>test</Button>
         <h1>This is the grid thing</h1>
         <div className="robot_layout">
             <div className="space">empty</div>

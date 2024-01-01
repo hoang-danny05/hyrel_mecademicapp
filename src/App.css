@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  /* temporary fix */
+  width: 80%
+  /* width:1000px; */
 }
 
 .logo {

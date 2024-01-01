@@ -1,8 +1,9 @@
-import "./App.css";
+import "../App.css";
+import "./Homepage.css";
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
+import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
-import Setting from "./Setting.tsx";
+import Setting from "../Setting.tsx";
 
 type JoystickData = {
   x: String;
@@ -72,7 +73,7 @@ const Homepage = () => {
 
   return (
     <>
-      <div>
+      <div className="flex flex-row justify-center">
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
