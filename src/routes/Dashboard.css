@@ -1,0 +1,27 @@
+.dash {
+    display: flex;
+    flex-direction: row;
+}
+
+.instructions {
+    min-width: 500px;
+}
+
+.dash .title {
+    font-weight: bold;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 1rem 1rem 0 0 ;
+}
+
+.instructions {
+    padding-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.instruction-group > .trigger {
+    min-width: 300px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+}

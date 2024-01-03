@@ -6,7 +6,7 @@ const Grid = () => {
     return (
         <>
         <Button>test</Button>
-        <h1>This is the grid thing</h1>
+        <h1>ROBOT LAYOUT</h1>
         <div className="robot_layout">
             <div className="space">empty</div>
             <div className="space">test</div>

@@ -7,6 +7,7 @@ import Layout from "./Layout.tsx";
 import Homepage from "./routes/Homepage.tsx";
 import Grid from "./routes/Grid.tsx"
 import None from "./routes/None.tsx"
+import Dashboard from "./routes/Dashboard.tsx";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Homepage />} />
             <Route path="grid" element={<Grid />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="*" element={<None />} />
           </Route>
         </Routes>
