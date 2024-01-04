@@ -17,7 +17,25 @@ type GroupProps = {
     Handler:any
 };
 
+const formatCoordinates = (nums: Array<number>) => {
+    if (nums.length === 1)
+        return nums
+    return nums.map((num, i) => i === 5? num : `${num}, `)
+}
+
+//this boi should be nested so its a closure
 const GroupComponent = (params : GroupProps, index: number) => {
+
+    const InstructionComponent = (instr: Instruction, jndex: number) => {
+        return (
+            //check if JSON stringify is good or not (it probably isn't)
+            <div className="instruction bg-slate-700 rounded flex flex-col justify-start" key={JSON.stringify(instr) + jndex}>
+                <p>{instr.command}</p>
+                {instr.parameters ? <p>{formatCoordinates(instr.parameters)}</p> : null}
+            </div>
+        )
+    }
+
     return (
         <div
             draggable 
@@ -30,7 +48,8 @@ const GroupComponent = (params : GroupProps, index: number) => {
             //you don't do the default event
             onDragOver={(e) => e.preventDefault()}
         >
-            <Collapsible className="bg-slate-600 instruction-group">
+            {/* ew key  */}
+            <Collapsible className="bg-slate-600 instruction-group" key={JSON.stringify(params.group)}>
                 <CollapsibleTrigger asChild className="trigger">
                     <Button variant="default" className="justify-between">
                         <p>{params.group.name}</p>
@@ -38,9 +57,10 @@ const GroupComponent = (params : GroupProps, index: number) => {
                     </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                    MoveJoints(0,0,0,0,0,0) [NOTE: needs to be editable]
+                    {params.group.steps.map(InstructionComponent)}
+                    {/* MoveJoints(0,0,0,0,0,0) [NOTE: needs to be editable]
                     <br />
-                    MoveLinRelWrf(0, 10, 0, 0, 0, 0)
+                    MoveLinRelWrf(0, 10, 0, 0, 0, 0) */}
                 </CollapsibleContent>
             </Collapsible>
         </div>
@@ -54,6 +74,10 @@ const Dashboard = () => {
             {
                 name: "pressButton", 
                 steps: [
+                    {
+                        command: "ActivateRobot",
+                        parameters: undefined,
+                    },
                     {
                         command: "MoveJoints",
                         parameters: [90, 0, 0, 0, 0, 0]
@@ -76,7 +100,7 @@ const Dashboard = () => {
                         parameters: [0, 0, -10, 0, 0, 0]
                     }
                 ]
-            }, 
+            }
 
         ]
     } satisfies Component
@@ -96,6 +120,7 @@ const Dashboard = () => {
     const passedInfo: Array<GroupProps> = component.groups.map((self) => {
         return {
             group: self,
+            //use closures to remove this ugly code
             draggedRef: draggedGroup,
             draggedOverRef: draggedOverGroup,
             Handler: HandleGroup

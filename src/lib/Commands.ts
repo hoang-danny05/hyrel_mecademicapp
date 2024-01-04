@@ -130,7 +130,8 @@ type OneArgumentInstruction = {
 }
 
 type ZeroArgumentInstruction = {
-    command: ZeroArgCommand 
+    command: ZeroArgCommand,
+    parameters: undefined
 }
 
 export type Instruction = SixArgumentInstruction | OneArgumentInstruction | ZeroArgumentInstruction;

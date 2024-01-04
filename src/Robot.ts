@@ -1,6 +1,7 @@
 import { Socket } from "node:net"
 import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
 import { Queue } from 'queue-typescript';
+import { rejects } from "node:assert";
 
 class Robot {
     private socket: Socket;
@@ -68,6 +69,29 @@ class Robot {
                     reject("No response in time")
             }, 1000)
         })
+    }
+
+    //DEBUGGING METHODS
+    sendString(str: string): Promise<String> {
+        this.socket.once("data", (buf) => {
+            this.receivedResponses.enqueue(buf.toString())
+        })
+
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.receivedResponses.dequeue()
+                response? 
+                    resolve(response) :
+                    reject("No response recieved from the robot in time")
+            }, 100)
+        })
+    }
+
+    public printQueue() {
+        let i = 1;
+        for (const response of this.receivedResponses) {
+            console.log(`${i++}: ${response}`)
+        }
     }
 }
 
