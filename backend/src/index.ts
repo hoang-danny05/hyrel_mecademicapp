@@ -1,8 +1,17 @@
-import WebSocket from "ws";
-const ws = new WebSocket.Server({ port: 8080 })
+import Robot from "./Robot";
 
-ws.on("connection", (socket: WebSocket) => {
-    socket.on("message", (message) => {
-        socket.send(`Roger: ${message}`)
-    })
-})
+const robot = new Robot();
+
+robot.connectPromise()
+    .then(sendCommands)
+    .catch((reason) => console.error(reason))
+
+function sendCommands() {
+    console.log(robot.connected)
+    robot.sendString("ActivateRobot")
+        .then((str) => console.log(str.toString()))
+        .catch((reason) => console.error(reason))
+    robot.sendString("Home")
+        .then((str) => console.log(str.toString()))
+        .catch((reason) => console.error(reason))
+}

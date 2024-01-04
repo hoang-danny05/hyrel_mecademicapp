@@ -1,5 +1,5 @@
 import { Socket } from "node:net"
-import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
+// import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
 import { Queue } from 'queue-typescript';
 
 class Robot {
@@ -14,7 +14,8 @@ class Robot {
         })
         //TODO: this can be better than console.log
         this.socket.on("data", (response) => {
-            console.log(response)
+            this.receivedResponses.enqueue(`Queue: ${response.toString()}`)
+            console.log(`Recieved: ${response.toString()}`)
             let code: number;
             try {
                 code = Number.parseInt(response.toString().substring(1, 5))
@@ -38,6 +39,15 @@ class Robot {
                     break
             }
         })
+        this.socket.on("close", (hadError) => {
+            console.log(`Exited with ${hadError? "ERROR" : "with no error"}`)
+        })
+        this.socket.on("end", () => {
+            console.log("END???")
+        })
+        this.socket.on("ready", () => {
+            console.log("READYYYY")
+        })
     }
 
     attemptConnect() {
@@ -46,38 +56,52 @@ class Robot {
         })
     }
 
+    connectPromise(): Promise<null> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject("connection took too long dummy")
+            }, 1000)
+            this.socket.connect(10000, '192.168.0.100', () => {
+                this.connected = true;
+                resolve(null)
+            })
+        })
+    }
+
     disconnect() {
         this.socket.end()
     }
 
-    sendCommand(command: ZeroArgCommand): void {
-        this.socket.write(`${command}()`)
-    }
+    // sendCommand(command: ZeroArgCommand): void {
+    //     this.socket.write(`${command}()`)
+    // }
 
-    sendRequest(request: ZeroArgRequest): Promise<String> {
-        //somewhere in socket.on has to supply the response
-        this.socket.once("data", (buf) => {
-            this.receivedResponses.enqueue(buf.toString())
-        })
+    // sendRequest(request: ZeroArgRequest): Promise<String> {
+    //     //somewhere in socket.on has to supply the response
+    //     this.socket.once("data", (buf) => {
+    //         this.receivedResponses.enqueue(buf.toString())
+    //     })
 
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const element = this.receivedResponses.dequeue();
-                element? 
-                    resolve(element) :
-                    reject("No response in time")
-            }, 1000)
-        })
-    }
+    //     return new Promise((resolve, reject) => {
+    //         setTimeout(() => {
+    //             const element = this.receivedResponses.dequeue();
+    //             element? 
+    //                 resolve(element) :
+    //                 reject("No response in time")
+    //         }, 1000)
+    //     })
+    // }
 
     //DEBUGGING METHODS
     sendString(str: string): Promise<String> {
-        this.socket.once("data", (buf) => {
-            this.receivedResponses.enqueue(buf.toString())
-        })
+        // this.socket.once("data", (buf) => {
+        //     this.receivedResponses.enqueue(buf.toString())
+        // })
+        this.socket.write(str)
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
+                this.printQueue()
                 const response = this.receivedResponses.dequeue()
                 response? 
                     resolve(response) :
@@ -88,6 +112,8 @@ class Robot {
 
     public printQueue() {
         let i = 1;
+        if (this.receivedResponses.length == 0)
+            console.log("QUEUE IS EMPTY")
         for (const response of this.receivedResponses) {
             console.log(`${i++}: ${response}`)
         }
