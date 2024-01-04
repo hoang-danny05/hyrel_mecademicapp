@@ -1,25 +1,30 @@
-import { Socket } from "node:net"
-import { networkInterfaces } from "node:os";
+import { Socket } from "node:net";
 // import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
 import { Queue } from 'queue-typescript';
 
 class Robot {
     private socket: Socket;
     connected: boolean = false;
-    receivedResponses: Queue<String> = new Queue<String>();
+    // receivedResponses: Queue<String> = new Queue<String>();
+    resolveQueue: Queue<(value: String | PromiseLike<String>) => void> = new Queue<(value: String | PromiseLike<String>) => void>();
 
     constructor() {
         this.socket = new Socket();
         this.socket.on("close", () => {
             this.connected = false;
         })
-        //TODO: this can be better than console.log
         this.socket.on("data", (response) => {
-            this.receivedResponses.enqueue(`Queue: ${response.toString()}`)
-            // console.log(`Recieved: ${response.toString()}`)
+            //RESOLVE COMMANDS
+            const resolve = this.resolveQueue.dequeue()
+            if(resolve) {
+                resolve(response.toString())
+            }
+            //SEND MORE COMMANDS TO THE ROBOT
+
             let code: number;
             try {
                 code = Number.parseInt(response.toString().substring(1, 5))
+                // console.log(code)
             } 
             catch (NumberFormatException) {
                 console.log(`Error getting response code, displaying text.\n${response}`)
@@ -28,17 +33,17 @@ class Robot {
             //[1***] -> invalid command, error on me
             //[2***] -> status code
             //[3***] -> status update or "general error"
-            switch (true) {
-                case (code < 2000):
-                    console.error(response)
-                    break
-                case (code < 3000):
-                    console.log(response)
-                    break
-                case (code < 4000):
-                    console.log(response)
-                    break
-            }
+            // switch (true) {
+            //     case (code < 2000):
+            //         console.error(response)
+            //         break
+            //     case (code < 3000):
+            //         console.log(response)
+            //         break
+            //     case (code < 4000):
+            //         console.log(response)
+            //         break
+            // }
         })
 
         // this.socket.on("close", (hadError) => {
@@ -63,7 +68,7 @@ class Robot {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 reject("connection took too long dummy")
-            }, 1000)
+            }, 2000)
             this.socket.connect(10000, '192.168.0.100', () => {
                 this.connected = true;
                 resolve(null)
@@ -103,23 +108,11 @@ class Robot {
         this.socket.write(str)
 
         return new Promise((resolve, reject) => {
+            this.resolveQueue.enqueue(resolve);
             setTimeout(() => {
-                this.printQueue()
-                const response = this.receivedResponses.dequeue()
-                response? 
-                    resolve(response) :
                     reject("No response recieved from the robot in time")
-            }, 100)
+            }, 3000)
         })
-    }
-
-    public printQueue() {
-        let i = 1;
-        if (this.receivedResponses.length == 0)
-            console.log("QUEUE IS EMPTY")
-        for (const response of this.receivedResponses) {
-            console.log(`${i++}: ${response}`)
-        }
     }
 }
 
