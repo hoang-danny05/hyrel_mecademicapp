@@ -1,72 +1,30 @@
 import "../App.css";
 import "./Homepage.css";
 import { useState, useEffect } from "react";
+import useWebSocket from 'react-use-websocket'
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
-// import Robot from "../Robot.ts";
-
-type JoystickData = {
-  x: String;
-  y: String;
-  z: String;
-  button1: String;
-  button2: String;
-};
-
-type JoystickPosition = {
-  x: number;
-  y: number;
-  z: number;
-};
 
 function format() {
   console.log("hello")
 }
 
-// function testGet() {
-//   fetch("http://localhost:8000")
-//   .then(res => res.json().then(json => console.log(json)))
-//   .catch(err => console.error(err))
-// }
-
-// async function testPost() {
-//   console.log(await api.post("/", {"name": "string"}))
-// }
-
-// const robot = new Robot();
-
-// function tryConnecting() {
-//   robot.attemptConnect()
-// }
-
-// function activate() {
-//   if(! robot.connected) {
-//     console.error("ROBOT IS NOT CONNECTED")
-//     return 
-//   }
-
-//   robot.sendString("ActivateRobot")
-//     .then((str) => console.log(`Activation: ${str}`))
-//   robot.sendString("Home")
-//     .then((str) => console.log(`Home: ${str}`))
-// }
-
-// function sendDebug() {
-//   if(! robot.connected) {
-//     console.error("ROBOT IS NOT CONNECTED")
-//     return 
-//   }
-
-//   robot.sendString("MoveJoints(90, 0, 0, 0, 0, 0)")
-//     .then((str) => console.log(`MoveJoints: ${str}`))
-// }
-
 const Homepage = () => {
+  const { sendMessage, lastMessage, readyState } = useWebSocket("ws://localhost:8080")
   const [count, setCount] = useState(0);
   const [controlling, setControlling] = useState(false);
 
-  let data: JoystickData;
+  function handleSendMessage() {
+    sendMessage("why won't you work???")
+  }
 
+  function printReadyState() {
+    console.log(readyState)
+  }
+
+  function printLastMessage() {
+    console.log(lastMessage)
+  }
 
   return (
     <>
@@ -85,6 +43,9 @@ const Homepage = () => {
           count is {count}
         </button>
         <button onClick={format}>Template</button>
+        <button onClick={printReadyState}>Ready Status</button>
+        <button onClick={printLastMessage}>LastMessage</button>
+        <button onClick={handleSendMessage}>send message?</button>
         {/* <button onClick={tryConnecting}>Attempt Connection</button>
         <button onClick={activate}>ActivateAndHome</button>
         <button onClick={sendDebug}>send debug stuff</button> */}
