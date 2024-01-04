@@ -8,10 +8,16 @@ robot.connectPromise()
 
 function sendCommands() {
     console.log(robot.connected)
-    robot.sendString("ActivateRobot")
+    robot.sendString("ActivateRobot\r\n")
         .then((str) => console.log(str.toString()))
         .catch((reason) => console.error(reason))
-    robot.sendString("Home")
+    robot.sendString("Home\r\n")
+        .then((str) => console.log(str.toString()))
+        .catch((reason) => console.error(reason))
+    robot.sendString("MoveJoints(90,0,0,0,0,0)\r\n")
+        .then((str) => console.log(str.toString()))
+        .catch((reason) => console.error(reason))
+    robot.sendString("MoveJoints(0,0,0,0,0,0)\r\n")
         .then((str) => console.log(str.toString()))
         .catch((reason) => console.error(reason))
 }

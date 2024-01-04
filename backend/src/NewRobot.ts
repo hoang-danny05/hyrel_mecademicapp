@@ -16,7 +16,7 @@ class Robot {
         //TODO: this can be better than console.log
         this.socket.on("data", (response) => {
             this.receivedResponses.enqueue(`Queue: ${response.toString()}`)
-            // console.log(`Recieved: ${response.toString()}`)
+            console.log(`Recieved: ${response.toString()}`)
             let code: number;
             try {
                 code = Number.parseInt(response.toString().substring(1, 5))
@@ -40,17 +40,15 @@ class Robot {
                     break
             }
         })
-
-        // this.socket.on("close", (hadError) => {
-        //     console.log(`Exited with ${hadError? "ERROR" : "with no error"}`)
-        // })
-        // this.socket.on("end", () => {
-        //     console.log("END???")
-        // })
-        // this.socket.on("ready", () => {
-        //     console.log("READYYYY")
-        // })
-
+        this.socket.on("close", (hadError) => {
+            console.log(`Exited with ${hadError? "ERROR" : "with no error"}`)
+        })
+        this.socket.on("end", () => {
+            console.log("END???")
+        })
+        this.socket.on("ready", () => {
+            console.log("READYYYY")
+        })
     }
 
     attemptConnect() {
