@@ -4,7 +4,10 @@ import {
     CollapsibleTrigger 
 } from "@/components/ui/collapsible"
 //i think i changed @/ to a different path, please check
-import { ChevronDown } from "lucide-react"
+import { 
+    ChevronDown,
+    AlignJustify
+} from "lucide-react"
 import "./Dashboard.css"
 import { Button } from "@/components/ui/button"
 import { useState, useRef } from "react"
@@ -29,7 +32,11 @@ const GroupComponent = (params : GroupProps, index: number) => {
     const InstructionComponent = (instr: Instruction, jndex: number) => {
         return (
             //check if JSON stringify is good or not (it probably isn't)
-            <div className="instruction bg-slate-700 rounded flex flex-col justify-start" key={JSON.stringify(instr) + jndex}>
+            <div 
+                className="instruction bg-slate-950 border-2 rounded flex-1" 
+                key={JSON.stringify(instr) + jndex}
+                draggable
+            >
                 <p>{instr.command}</p>
                 {instr.parameters ? <p>{formatCoordinates(instr.parameters)}</p> : null}
             </div>
@@ -49,14 +56,17 @@ const GroupComponent = (params : GroupProps, index: number) => {
             onDragOver={(e) => e.preventDefault()}
         >
             {/* ew key  */}
-            <Collapsible className="bg-slate-600 instruction-group" key={JSON.stringify(params.group)}>
-                <CollapsibleTrigger asChild className="trigger">
-                    <Button variant="default" className="justify-between">
-                        <p>{params.group.name}</p>
-                        <ChevronDown />
-                    </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
+            <Collapsible className="bg-inherit instruction-group flex space-y-4" key={JSON.stringify(params.group)}>
+                <div className="flex flex-row justify-center items-center gap-1">
+                    <AlignJustify className="cursor-move"/>
+                    <CollapsibleTrigger asChild className="trigger">
+                        <Button variant="default" className="justify-between border-2 border-white">
+                            <p>{params.group.name}</p>
+                            <ChevronDown />
+                        </Button>
+                    </CollapsibleTrigger>
+                </div>
+                <CollapsibleContent className="bg-inherit flex flex-col justify-between space-y-1">
                     {params.group.steps.map(InstructionComponent)}
                     {/* MoveJoints(0,0,0,0,0,0) [NOTE: needs to be editable]
                     <br />
@@ -107,6 +117,8 @@ const Dashboard = () => {
     )
     const draggedGroup = useRef<number>(0);
     const draggedOverGroup = useRef<number>(0);
+    const draggedInstruction = useRef<number>(0);
+    const draggedOverInstruction = useRef<number>(0);
 
     function HandleGroup() {
         const groupClone = [...component.groups];
@@ -131,8 +143,8 @@ const Dashboard = () => {
             <h1>Instruction Dashboard</h1>
             <div className="dash">
                 {/* we might want card for the header-content collection */}
-                <div className="instructions flex flex-col bg-slate-600">
-                    <div className="title bg-gray-800">
+                <div className="instructions flex flex-col bg-slate-900 border-2 border-white">
+                <div className="title bg-gray-900 border-white">
                         Instructions for {component.name}
                     </div>
                     {

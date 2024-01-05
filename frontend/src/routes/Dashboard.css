@@ -10,7 +10,7 @@
 .dash .title {
     font-weight: bold;
     font-size: 20px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 1rem 1rem 0 0 ;
 }
 
@@ -19,8 +19,22 @@
     border-radius: 1rem;
 }
 
-.instruction-group > .trigger {
-    min-width: 300px;
+.instruction-group {
+    /* size */
+    /* children */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    /* min-height: 10rem; */
+}
+
+.instruction-group > * {
+    min-width: 26rem;
+}
+
+.instruction-group .trigger {
+    min-width: 20rem;
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: left;
