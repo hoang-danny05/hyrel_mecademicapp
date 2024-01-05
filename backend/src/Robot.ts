@@ -2,11 +2,16 @@ import { Socket } from "node:net";
 // import { ZeroArgCommand, ZeroArgRequest, OneArgCommand, OneArgRequest, SixArgumentCommand } from "./lib/Commands";
 import { Queue } from 'queue-typescript';
 
+type PromisePair = {
+    resolve: (value: String | PromiseLike<String>) => void,
+    reject: (reason?: any) => void
+}
+
 class Robot {
     private socket: Socket;
     connected: boolean = false;
-    // receivedResponses: Queue<String> = new Queue<String>();
-    resolveQueue: Queue<(value: String | PromiseLike<String>) => void> = new Queue<(value: String | PromiseLike<String>) => void>();
+    commandQueue: Queue<String> = new Queue<String>();
+    resolveQueue: Queue<PromisePair> = new Queue<PromisePair>();
 
     constructor() {
         this.socket = new Socket();
@@ -15,16 +20,24 @@ class Robot {
         })
         this.socket.on("data", (response) => {
             //RESOLVE COMMANDS
-            const resolve = this.resolveQueue.dequeue()
-            if(resolve) {
-                resolve(response.toString())
+            const result = this.resolveQueue.dequeue()
+            if(result) {
+                result.resolve(response.toString())
+            }
+            //SEND NEW COMMAND, START THE SETTIMEOUT
+            if(this.commandQueue.length > 0)
+            {
+                this.socket.write(this.commandQueue.dequeue() as string)
+                // setTimeout(() => {
+                //     console.log("this should reject")
+                //     result.reject(new Error("No response recieved from the robot in time"))
+                // }, 1000)
             }
             //SEND MORE COMMANDS TO THE ROBOT
 
             let code: number;
             try {
                 code = Number.parseInt(response.toString().substring(1, 5))
-                // console.log(code)
             } 
             catch (NumberFormatException) {
                 console.log(`Error getting response code, displaying text.\n${response}`)
@@ -102,16 +115,14 @@ class Robot {
 
     //DEBUGGING METHODS
     sendString(str: string): Promise<String> {
-        // this.socket.once("data", (buf) => {
-        //     this.receivedResponses.enqueue(buf.toString())
-        // })
-        this.socket.write(str)
-
         return new Promise((resolve, reject) => {
-            this.resolveQueue.enqueue(resolve);
-            setTimeout(() => {
-                    reject("No response recieved from the robot in time")
-            }, 3000)
+            //looks so terrible lmao
+            this.resolveQueue.enqueue({resolve: resolve, reject: reject});
+            this.commandQueue.enqueue(str)
+            // setTimeout(() => {
+                // console.log("I know this rejects")
+                // reject("No response recieved from the robot in time")
+            // }, 5000)
         })
     }
 }
