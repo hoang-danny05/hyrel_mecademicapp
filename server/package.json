@@ -1,0 +1,19 @@
+{
+  "name": "fullstack-clientside",
+  "version": "1.0.0",
+  "description": "a full stack app in charge of a website gui and communicating with the backend",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index",
+    "serve": "ts-node index.ts"
+  },
+  "author": "danny hoang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
