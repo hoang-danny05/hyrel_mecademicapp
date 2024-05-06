@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 // import API from "./Backend.ts"
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom"

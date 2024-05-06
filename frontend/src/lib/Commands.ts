@@ -170,3 +170,5 @@ const test : Component = {
     name: "urmom",
     groups: [group1]
 } satisfies Component 
+
+test;

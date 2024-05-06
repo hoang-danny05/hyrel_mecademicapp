@@ -1,6 +1,6 @@
 import "../App.css";
 import "./Homepage.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useWebSocket from 'react-use-websocket'
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";

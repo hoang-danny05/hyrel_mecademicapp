@@ -117,8 +117,8 @@ const Dashboard = () => {
     )
     const draggedGroup = useRef<number>(0);
     const draggedOverGroup = useRef<number>(0);
-    const draggedInstruction = useRef<number>(0);
-    const draggedOverInstruction = useRef<number>(0);
+    // const draggedInstruction = useRef<number>(0);
+    // const draggedOverInstruction = useRef<number>(0);
 
     function HandleGroup() {
         const groupClone = [...component.groups];
