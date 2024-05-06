@@ -1,5 +1,8 @@
 {
   "imports": {
-    "canvas-confetti": "./canvas-confetti.js"
+    "canvas-confetti": "./canvas-confetti.js",
+    "react": "./react.js",
+    "react-dom/client": "./react-dom/client.js",
+    "react-router-dom": "./react-router-dom.js"
   }
 }
