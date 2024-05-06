@@ -9,3 +9,5 @@ app.listen(PORT, () => console.log("APP IS LISTENING"));
 app.get("/api/test", (req, res) => {
     res.send({"response":"successful"})
 })
+
+app.use(express.static("dist"))
