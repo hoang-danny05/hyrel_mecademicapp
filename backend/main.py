@@ -2,14 +2,15 @@ import sys
 import traceback
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mecademicpy import rbt
+from mecademicpy import robot as rbt
 from mecademicpy import robot_classes
 
 app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -76,9 +77,9 @@ def checkSixArgCommand(body: SixArgCommandBody):
 @app.post("/robot/SixArgCommand")
 async def run_command(cmd: SixArgCommandBody):
     result = checkSixArgCommand(cmd)
-    if result.success:
+    if result["success"]:
         cmd = f"{cmd.name}({cmd.arguments[0]},{cmd.arguments[1]},{cmd.arguments[2]},{cmd.arguments[3]},{cmd.arguments[4]},{cmd.arguments[5]})"
         print("Executing: ", cmd)
         return {"success": True, "command": cmd}
     else:
-        return {"success": False, "error": result.error}
+        return {"success": False, "error": str(result["error"])}

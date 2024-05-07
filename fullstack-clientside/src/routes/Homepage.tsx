@@ -1,23 +1,23 @@
 import "../App.css";
 import "./Homepage.css";
 import { useState } from "react";
-import useWebSocket from 'react-use-websocket'
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 
-const IP_ADDRESS = "192.168.3.14"
+// const IP_ADDRESS = "192.168.3.14"
+const localhost = "127.0.0.1"
+const IP_ADDRESS = localhost
+const PORT = 8080
 function format() {
   console.log("hello")
 }
 
 const Homepage = () => {
-  const { sendMessage, lastMessage, readyState } = useWebSocket("ws://localhost:8080")
   const [connected, setConnected] = useState(false);
   const [count, setCount] = useState(0);
-  const [controlling, setControlling] = useState(false);
 
   function command_Connect() {
-    fetch(`http://${IP_ADDRESS}/robot/command/Connect`)
+    fetch(`http://${IP_ADDRESS}:${PORT}/robot/command/Connect`)
     .then(
       (response) => 
       response.json().then(
@@ -27,7 +27,7 @@ const Homepage = () => {
   }
 
   function command_ActivateAndHome() {
-    fetch(`http://${IP_ADDRESS}/robot/command/ActivateAndHome`)
+    fetch(`http://${IP_ADDRESS}:${PORT}/robot/command/ActivateAndHome`)
     // .then(
     //   (response) => 
     //   response.json().then(
@@ -36,16 +36,21 @@ const Homepage = () => {
     // )
   }
 
-  function handleSendMessage() {
-    sendMessage("why won't you work???")
-  }
-
-  function printReadyState() {
-    console.log(readyState)
-  }
-
-  function printLastMessage() {
-    console.log(lastMessage)
+  //async function command_sixargs(command: string, args: [number, number, number, number, number, number]) {
+  async function command_sixargs() {
+    const data = {
+      name: "MoveJoints",
+      arguments: [90,0,0,0,0,0]
+    }
+    const result = await fetch(`http://${IP_ADDRESS}:${PORT}/robot/SixArgCommand`, {
+      method: "POST", 
+      mode: "cors", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    console.table(result);
   }
 
   return (
@@ -70,13 +75,7 @@ const Homepage = () => {
         }
         <button onClick={command_ActivateAndHome}>Send Home Message</button>
         <button onClick={format}>Template</button>
-        <button onClick={printReadyState}>Ready Status</button>
-        <button onClick={printLastMessage}>LastMessage</button>
-        <button onClick={handleSendMessage}>send message?</button>
-        {/* <button onClick={tryConnecting}>Attempt Connection</button>
-        <button onClick={activate}>ActivateAndHome</button>
-        <button onClick={sendDebug}>send debug stuff</button> */}
-        <button onClick={() => {setControlling(!controlling);}}>{controlling? "Stop Controlling" : "Start Controlling"} </button>
+        <button onClick={command_sixargs}>Test Six Argument</button>
         <br />
         <label>Speed: </label>
         <input type="text"></input>
