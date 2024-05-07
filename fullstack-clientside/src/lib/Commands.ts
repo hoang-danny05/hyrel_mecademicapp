@@ -100,7 +100,7 @@ export type OneArgRequest =
     "GetJointLimits" |
     "GetRtAccelerometer"
 
-export type SixArgumentCommand = 
+export type SixArgCommand = 
     "MoveJoints" |
     "MoveJointsVel" |
     "MoveLin" |
@@ -119,7 +119,7 @@ export type SixArgumentCommand =
 // ######################################################################
 
 type SixArgumentInstruction = {
-    command: SixArgumentCommand,
+    command: SixArgCommand,
     //take in six numbers :)
     parameters: [number, number, number, number, number, number]
 }
