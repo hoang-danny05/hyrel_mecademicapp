@@ -10,3 +10,9 @@ Using the mecadmic api normally is too troublesome! This app is made to interfac
 4) npx vite or npm run dev
 
 
+## running the backend
+have python downloaded!
+1) optional: create python virtual environment
+        - python -m venv venv
+        - use the venv
+2) pip install requirements.txt
