@@ -22,7 +22,7 @@ ZeroArgCommand = [
     #"TCPDumpStop" 
 ]
 
-class ZeroArgCommandBody:
+class ZeroArgCommandBody(BaseModel):
     name: str
 
 def checkZeroArgCommand(body: ZeroArgCommandBody):
@@ -80,7 +80,7 @@ ZeroArgRequest = [
     "GetTorqueLimitsSatus" 
 ]
 
-class ZeroArgRequestBody:
+class ZeroArgRequestBody(BaseModel):
     name: str
 
 def checkZeroArgRequest(body: ZeroArgRequestBody):
@@ -120,7 +120,7 @@ OneArgCommand = [
     # "TCPDump" 
 ]
 
-class OneArgCommandBody:
+class OneArgCommandBody(BaseModel):
     name: str
     argument: int
 
@@ -136,7 +136,7 @@ OneArgRequest = [
     "GetRtAccelerometer"
 ]
 
-class OneArgRequestBody:
+class OneArgRequestBody(BaseModel):
     name: str
     argument: int
 

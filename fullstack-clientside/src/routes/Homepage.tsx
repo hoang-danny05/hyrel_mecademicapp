@@ -1,20 +1,26 @@
 import "../App.css";
 import "./Homepage.css";
-import { useState } from "react";
+import { useState, useId } from "react";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
+import internal from "node:stream";
 
 // const IP_ADDRESS = "192.168.3.14"
 const localhost = "127.0.0.1"
 const IP_ADDRESS = localhost
 const PORT = 8080
-function format() {
-  console.log("hello")
-}
 
 const Homepage = () => {
   const [connected, setConnected] = useState(false);
   const [count, setCount] = useState(0);
+
+  const input_cmd_id = useId()
+  const [commandName, setCommandName] = useState("MoveJoints");
+  const [args, setArgs] = useState([0.0,0.0,0.0,0.0,0.0,0.0])
+
+  function format() {
+    console.log(args)
+  }
 
   function command_Connect() {
     fetch(`http://${IP_ADDRESS}:${PORT}/robot/command/Connect`)
@@ -38,9 +44,10 @@ const Homepage = () => {
 
   //async function command_sixargs(command: string, args: [number, number, number, number, number, number]) {
   async function command_sixargs() {
+
     const data = {
-      name: "MoveJoints",
-      arguments: [90,0,0,0,0,0]
+      name: commandName,
+      arguments: args
     }
     const result = await fetch(`http://${IP_ADDRESS}:${PORT}/robot/SixArgCommand`, {
       method: "POST", 
@@ -51,6 +58,12 @@ const Homepage = () => {
       body: JSON.stringify(data)
     })
     console.table(result);
+  }
+
+  function new_args(index: number, newValue: number){
+    let old_args = Array.from(args);
+    old_args[index] = newValue;
+    return old_args;
   }
 
   return (
@@ -77,8 +90,47 @@ const Homepage = () => {
         <button onClick={format}>Template</button>
         <button onClick={command_sixargs}>Test Six Argument</button>
         <br />
-        <label for="input-cmd">Command: </label>
-        <input type="text" id="input-cmd" />
+        <label htmlFor={input_cmd_id}>Command: </label>
+        <input type="text" id={input_cmd_id} value={commandName} onInput={e => setCommandName((e.target as HTMLInputElement).value)}/>
+        <br /> 
+        <label>Args: </label>
+        <input type="number" id="arg1" value={args[0]} 
+          onInput={e => {
+            setArgs(new_args(0, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+        <input type="number" id="arg1" value={args[1]} 
+          onInput={e => {
+            setArgs(new_args(1, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+        <input type="number" id="arg1" value={args[2]} 
+          onInput={e => {
+            setArgs(new_args(2, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+        <input type="number" id="arg1" value={args[3]} 
+          onInput={e => {
+            setArgs(new_args(3, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+        <input type="number" id="arg1" value={args[4]} 
+          onInput={e => {
+            setArgs(new_args(4, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+        <input type="number" id="arg1" value={args[5]} 
+          onInput={e => {
+            setArgs(new_args(5, (parseFloat((e.target as HTMLInputElement).value))))
+          }}
+          className="w-16"
+        />
+
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
