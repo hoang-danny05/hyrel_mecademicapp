@@ -77,8 +77,8 @@ const Homepage = () => {
         <button onClick={format}>Template</button>
         <button onClick={command_sixargs}>Test Six Argument</button>
         <br />
-        <label>Speed: </label>
-        <input type="text"></input>
+        <label for="input-cmd">Command: </label>
+        <input type="text" id="input-cmd" />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

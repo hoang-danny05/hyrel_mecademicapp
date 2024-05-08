@@ -58,24 +58,58 @@ def activate_and_home():
 ###########################################################
 # general command thing
 ###########################################################
-from pydantic import BaseModel
-from typing import List
+from RequestModel import ZeroArgCommandBody, checkZeroArgCommand
 
-from ValidChecker import SixArgCommand
-class SixArgCommandBody(BaseModel):
-    name: str
-    arguments: List[float]
+@app.post("/robot/ZeroArgCommand")
+async def ZeroArgCommand(cmd: ZeroArgCommandBody):
+    result = checkZeroArgCommand(cmd)
+    if result["success"]:
+        cmd = f"{cmd.name}()"
+        print("Executing: ", cmd)
+        return {"success": True, "command": cmd}
+    else:
+        return {"success": False, "error": str(result["error"])}
 
-def checkSixArgCommand(body: SixArgCommandBody):
-    try: 
-        assert body.name in SixArgCommand, "Invalid Six Argument command! Not adding to commands."
-        assert len(body.arguments) == 6, "Invalid amount of arguments!"
-    except AssertionError as errmsg: 
-        return {"success": False, "error": errmsg}
-    return {"success": True}
+from RequestModel import ZeroArgRequestBody, checkZeroArgRequest
+
+@app.post("/robot/ZeroArgRequest")
+async def ZeroArgRequest(cmd: ZeroArgRequestBody):
+    result = checkZeroArgRequest(cmd)
+    if result["success"]:
+        cmd = f"{cmd.name}()"
+        print("Executing: ", cmd)
+        return {"success": True, "command": cmd, "value": "your mom!"}
+    else:
+        return {"success": False, "error": str(result["error"])}
+
+from RequestModel import OneArgCommandBody, checkOneArgCommand
+
+@app.post("/robot/OneArgCommand")
+async def OneArgCommand(cmd: OneArgCommandBody):
+    result = checkOneArgCommand(cmd)
+    if result["success"]:
+        cmd = f"{cmd.name}()"
+        print("Executing: ", cmd)
+        return {"success": True, "command": cmd}
+    else:
+        return {"success": False, "error": str(result["error"])}
+
+from RequestModel import OneArgRequestBody, checkOneArgRequest
+
+@app.post("/robot/OneArgRequest")
+async def OneArgRequest(cmd: OneArgRequestBody):
+    result = checkOneArgRequest(cmd)
+    if result["success"]:
+        cmd = f"{cmd.name}()"
+        print("Executing: ", cmd)
+        return {"success": True, "command": cmd, "value": "your mom!"}
+    else:
+        return {"success": False, "error": str(result["error"])}
+
+from RequestModel import SixArgCommandBody, checkSixArgCommand
 
 @app.post("/robot/SixArgCommand")
-async def run_command(cmd: SixArgCommandBody):
+async def run_sixarg_command(cmd: SixArgCommandBody):
     result = checkSixArgCommand(cmd)
     if result["success"]:
         cmd = f"{cmd.name}({cmd.arguments[0]},{cmd.arguments[1]},{cmd.arguments[2]},{cmd.arguments[3]},{cmd.arguments[4]},{cmd.arguments[5]})"
