@@ -56,6 +56,11 @@ def activate_and_home():
     except Exception:
         return {"error": "UNKNOWN ROBOT ERROR [ROBOT.ACTIVATEANDHOME]"}
 
+@app.get("/robot/command/ResetError")
+def reset_error():
+    robot.ResetError()
+    robot.ResumeMotion()
+
 ###########################################################
 # general command thing
 ###########################################################
@@ -113,8 +118,12 @@ from RequestModel import SixArgCommandBody, checkSixArgCommand
 async def run_sixarg_command(cmd: SixArgCommandBody):
     result = checkSixArgCommand(cmd)
     if result["success"]:
-        cmd = f"{cmd.name}({cmd.arguments[0]},{cmd.arguments[1]},{cmd.arguments[2]},{cmd.arguments[3]},{cmd.arguments[4]},{cmd.arguments[5]})"
+        cmd = f"robot.{cmd.name}({cmd.arguments[0]},{cmd.arguments[1]},{cmd.arguments[2]},{cmd.arguments[3]},{cmd.arguments[4]},{cmd.arguments[5]})"
         print("Executing: ", cmd)
+        try:
+            eval(cmd)
+        except Exception as e:
+            print(e)
         return {"success": True, "command": cmd}
     else:
         return {"success": False, "error": str(result["error"])}

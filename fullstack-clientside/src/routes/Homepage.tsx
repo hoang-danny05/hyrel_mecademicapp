@@ -7,7 +7,7 @@ import internal from "node:stream";
 
 // const IP_ADDRESS = "192.168.3.14"
 const localhost = "127.0.0.1"
-const IP_ADDRESS = localhost
+const IP_ADDRESS = "192.168.3.14"
 const PORT = 8080
 
 const Homepage = () => {
@@ -34,6 +34,16 @@ const Homepage = () => {
 
   function command_ActivateAndHome() {
     fetch(`http://${IP_ADDRESS}:${PORT}/robot/command/ActivateAndHome`)
+    // .then(
+    //   (response) => 
+    //   response.json().then(
+    //     json => setConnected(json.successful)
+    //   )
+    // )
+  }
+
+  function command_reset() {
+    fetch(`http://${IP_ADDRESS}:${PORT}/robot/command/ResetError`)
     // .then(
     //   (response) => 
     //   response.json().then(
@@ -88,6 +98,7 @@ const Homepage = () => {
         }
         <button onClick={command_ActivateAndHome}>Send Home Message</button>
         <button onClick={format}>Template</button>
+        <button onClick={command_reset}>Reset</button>
         <button onClick={command_sixargs}>Test Six Argument</button>
         <br />
         <label htmlFor={input_cmd_id}>Command: </label>
