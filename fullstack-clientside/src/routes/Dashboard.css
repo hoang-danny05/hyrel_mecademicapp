@@ -1,41 +1,32 @@
 .dash {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 2rem;
 }
 
-.instructions {
-    min-width: 500px;
+.dash > * {
+    border: 1px solid white;
 }
 
-.dash .title {
-    font-weight: bold;
-    font-size: 20px;
-    /* border: 1px solid black; */
-    border-radius: 1rem 1rem 0 0 ;
-}
-
-.instructions {
-    padding-bottom: 1rem;
-    border-radius: 1rem;
-}
-
-.instruction-group {
-    /* size */
-    /* children */
+/* left to right */
+.instruction-types {
+    height: 40rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    /* min-height: 10rem; */
+    gap: 2rem;
 }
 
-.instruction-group > * {
-    min-width: 26rem;
+.single-instruction-type {
+    box-sizing: content-box;
+    display: block;
+    padding: .5rem 1rem .5rem 1rem;
+    cursor: pointer;
+    margin-bottom: .5rem;
+    transition: all 0.3s;
 }
 
-.instruction-group .trigger {
-    min-width: 20rem;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: left;
+.single-instruction-type::after {
+    /* was going to have the color effect on hover */
 }

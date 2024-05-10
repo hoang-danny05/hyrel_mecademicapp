@@ -1,11 +1,15 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* max-width: 1280px; */
   padding: 2rem;
   text-align: center;
   /* temporary fix */
-  width: 80%
-  /* width:1000px; */
+  /* width: 80% */
+  width: 100%;
+  left: 0;
+  position: relative;
 }
 
 .logo {

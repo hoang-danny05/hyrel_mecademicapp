@@ -113,6 +113,90 @@ export type SixArgCommand =
     // "SetTRF"
     // "SetWRF"
     // "SetNetworkOptions"
+// ######################################################################
+// LIST OF THE MAIN CATEGORIES OF COMMANDS
+// ######################################################################
+export const MovementInstructions = [
+    "MoveJoints",
+    "MoveLinRelWRF",
+    "MoveLinRelTRF",
+    "MovePose",
+    //setting speed
+    "SetCartAngVel",
+    "SetCartLinVel",
+    "SetGripperForce",
+    "SetGripperVel",
+    "SetJointAcc",
+    "SetJointVel",
+    "BrakesOn",
+    "BrakesOff",
+]
+
+
+export const Requests = [
+    "GetJoints" ,
+    "GetPose",
+    "GetStatusGripper",
+    "GetStatusRobot"
+]
+
+export const ControlInstructions = [
+    "Delay",
+    "GripperOpen",
+    "GripperClose",
+    "ClearMotion",
+    "ResumeMotion",
+    "PauseMotion"
+]
+
+export const SetupInstructions = [
+    "ActivateRobot",
+    "DeactivateRobot",
+    "Home",
+    "ResetError",
+    "ResetPStop"
+]
+//Speeds
+//assertVaccumSensorOn
+
+
+type InstructionType = {
+    type: string,
+    innerColor: string, 
+    borderColor: string,
+    instructions: Array<string>
+};
+
+export const InstructionTypes : Array<InstructionType> = [
+    {
+        type: "Movement",
+        //blue
+        innerColor: "rgb(76, 150, 255)",
+        borderColor: "rgb(51, 115, 204)",
+        instructions: MovementInstructions
+    },
+    {
+        type: "Requests",
+        //red
+        innerColor: "rgb(255, 102, 128)",
+        borderColor: "rgb(255, 51, 85)",
+        instructions: Requests
+    }, 
+    {
+        type: "Control",
+        //green
+        innerColor: "rgb(89, 192, 89)",
+        borderColor: "rgb(56, 148, 56)",
+        instructions: ControlInstructions
+    },
+    {
+        type: "Setup",
+        //yellow
+        innerColor: "rgb(255, 191, 0)",
+        borderColor: "rgb(204, 153, 0)",
+        instructions: SetupInstructions
+    }
+]
 
 // ######################################################################
 // TYPES FOR UI INSTRUCTIONS 
