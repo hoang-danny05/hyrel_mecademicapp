@@ -330,54 +330,16 @@ export const InstructionTypes : Array<InstructionType> = [
 type SixArgumentInstruction = {
     command: SixArgCommand,
     //take in six numbers :)
-    parameters: [number, number, number, number, number, number]
+    args: [number, number, number, number, number, number]
 }
 
 type OneArgumentInstruction = {
     command: OneArgCommand,
-    parameters: [number]
+    arg: number
 }
 
 type ZeroArgumentInstruction = {
-    command: ZeroArgCommand,
-    parameters: undefined
+    command: ZeroArgCommand
 }
 
-export type Instruction = SixArgumentInstruction | OneArgumentInstruction | ZeroArgumentInstruction;
-
-export type InstructionGroup = {
-    name: string,
-    steps: Array<Instruction>
-};
-
-export type Component = {
-    name: string,
-    groups: Array<InstructionGroup>
-};
-
-// ######################################################################
-//test cases, 
-//TODO: move to test
-// ######################################################################
-
-const step1: Instruction = {
-    command: "MoveJoints",
-    parameters: [0, 0, 0, 0, 0, 0]
- }
-
-const step2: Instruction = {
-    command: "SetCartLinVel",
-    parameters: [100]
-}
-
-const group1: InstructionGroup = {
-    name: "pressButton",
-    steps: [step1, step1, step2]
-}
-
-const test : Component = {
-    name: "urmom",
-    groups: [group1]
-} satisfies Component 
-
-test;
+export type Instruction = SixArgumentInstruction | OneArgumentInstruction | ZeroArgumentInstruction

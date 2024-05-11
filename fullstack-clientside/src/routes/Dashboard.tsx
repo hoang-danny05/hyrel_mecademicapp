@@ -1,29 +1,12 @@
 import "./Dashboard.css"
 import { FC, useState, useRef } from 'react'
-import { InstructionTypes } from "@/lib/Commands"
+import { InstructionTypes, Instruction } from "@/lib/Commands"
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
-
-// EACH INSTRUCTION YOU CAN CLICK ON
-const InstructionChip = (name: string, color: string, appendInstruction : (arg1: string) => void) => {
-    const onChipClicked = (event : React.MouseEvent<HTMLDivElement>) => {
-        appendInstruction((event.target as HTMLDivElement).innerText)
-    }
-
-    return (
-        <div 
-            className="instruction-chip" 
-            style={{borderLeft: `1rem solid ${color}`}}
-            onClick={onChipClicked}
-            key={name}
-        >
-            {name}
-        </div>
-    )
-}
+import SelectableInstruction from "./Dashboard/SelectableInstruction"
 
 const Dashboard : FC = () => {
-    const [instructionOrder, setInstructionOrder] = useState<Array<string>>([])
-    const appendInstruction = (newInstruction : string) => {
+    const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
+    const appendInstruction = (newInstruction : Instruction) => {
         setInstructionOrder([...instructionOrder, newInstruction])
     }
     const refs = InstructionTypes.map(_ => useRef<HTMLDivElement>(null));
@@ -55,7 +38,7 @@ const Dashboard : FC = () => {
                                 <h2 ref={refs[index]} key={`${Math.random()}X`}>{instruction_type.type}</h2>
                                 {instruction_type.instructions.map(
                                     (instruction_name) =>
-                                        InstructionChip(instruction_name, instruction_type.innerColor, appendInstruction)
+                                        SelectableInstruction(instruction_name, instruction_type.innerColor, appendInstruction)
                                 )}
                             </div>
                         )
@@ -67,8 +50,10 @@ const Dashboard : FC = () => {
             <div className="instruction-order">
                 {
                     // THE CURRENT SELECTED INSTRUCTIONS
-                    instructionOrder.map((instr) => (
-                        SingleSelectedInstruction({name: instr})
+                    instructionOrder.map((instr, idx) => (
+                        SingleSelectedInstruction(
+                            {instr: instr, index: idx}
+                        )
                     ))
                 }
             </div>

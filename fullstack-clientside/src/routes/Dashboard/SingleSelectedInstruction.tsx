@@ -1,4 +1,4 @@
-import { InstructionTypes } from "@/lib/Commands";
+import { Instruction, InstructionTypes } from "@/lib/Commands";
 import { ListOfArgTypes } from "@/lib/Commands";
 
 type StringToStyle = (arg1: string) => {innerColor:string, borderColor:string};
@@ -17,7 +17,7 @@ const getColorOfInstruction : StringToStyle = (instruction_name : string) => {
 }
 
 type instrToArgs = (arg1: string) => number
-const getArgsOfInstruction : instrToArgs = (instruction_name : string) => {
+export const getArgsOfInstruction : instrToArgs = (instruction_name : string) => {
     let returnValue = 100;
     ListOfArgTypes.forEach(ArgTypeList => {
         ArgTypeList.list.some((instr) => instr == instruction_name) ?
@@ -74,19 +74,19 @@ const ArgumentBoxes = (instruction_name : string) => {
     }
 }
 
-const SingleSelectedInstruction = (props: {name: string}) => {
+const SingleSelectedInstruction = (props: {instr: Instruction, index: number}) => {
 
-    const style = getColorOfInstruction(props.name)
+    const style = getColorOfInstruction(props.instr.command)
     return (
         <div 
-            className={`single-selected-instruction ${getCSSClass(props.name)}`}
+            className={`single-selected-instruction ${getCSSClass(props.instr.command)}`}
             style={style}
             key={Math.random()}
             onClick={event => console.log(getArgsOfInstruction((event.target as HTMLDivElement).innerText))}
         >
-            {props.name}
+            {props.instr.command}
             {
-                ArgumentBoxes(props.name)
+                ArgumentBoxes(props.instr.command)
             }
         </div>
     )
