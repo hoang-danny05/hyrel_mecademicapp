@@ -26,17 +26,68 @@ const getArgsOfInstruction : instrToArgs = (instruction_name : string) => {
     return returnValue;
 }
 
+type instrToClass = (arg1: string) => string
+const getCSSClass : instrToClass = (instruction_name : string) => {
+    switch(getArgsOfInstruction(instruction_name)) {
+        case(0) : {
+            return "ZeroArgs"
+        }
+        case(1) : {
+            return "OneArg"
+        }
+        case(6) : {
+            return "SixArgs"
+        }
+        default : {
+            return "InvalidArgError"
+        }
+    }
+}
+
+const ArgumentBoxes = (instruction_name : string) => {
+    switch (getArgsOfInstruction(instruction_name)) {
+        case (0) : {
+            return (<></>)
+        }
+        case (1) : {
+            return (
+                <div className="inputs">
+                    <input type="number" id="input-0" />
+                </div>
+            ) 
+        }
+        case (6) : {
+            return (
+                <div className="inputs">
+                    <input type="number" id="input-1" />
+                    <input type="number" id="input-2" />
+                    <input type="number" id="input-3" />
+                    <input type="number" id="input-4" />
+                    <input type="number" id="input-5" />
+                    <input type="number" id="input-6" />
+                </div>
+            );
+        }
+        default : {
+            return <b>ERROR</b>
+        }
+    }
+}
+
 const SingleSelectedInstruction = (props: {name: string}) => {
 
     const style = getColorOfInstruction(props.name)
     return (
         <div 
-            className="single-selected-instruction"
+            className={`single-selected-instruction ${getCSSClass(props.name)}`}
             style={style}
             key={Math.random()}
-            onClick={event => console.log(1)}
+            onClick={event => console.log(getArgsOfInstruction((event.target as HTMLDivElement).innerText))}
         >
             {props.name}
+            {
+                ArgumentBoxes(props.name)
+            }
         </div>
     )
 }

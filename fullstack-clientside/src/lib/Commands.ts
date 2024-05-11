@@ -230,7 +230,7 @@ type ArgList = {
     numArgs: number,
     list: Array<string>
 }
-export const ListOfTypes : Array<ArgList> = [
+export const ListOfArgTypes : Array<ArgList> = [
     {
         numArgs: 0,
         list: ZeroArgList
