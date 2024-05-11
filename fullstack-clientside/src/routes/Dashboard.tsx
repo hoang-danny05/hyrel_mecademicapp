@@ -1,14 +1,28 @@
 import "./Dashboard.css"
 import { FC, useState, useRef } from 'react'
-import { InstructionTypes, Instruction } from "@/lib/Commands"
+import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands"
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
 import SelectableInstruction from "./Dashboard/SelectableInstruction"
 
 const Dashboard : FC = () => {
     const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
+
     const appendInstruction = (newInstruction : Instruction) => {
         setInstructionOrder([...instructionOrder, newInstruction])
     }
+
+    const updateOneArgInstruction = (index: number, newArg: number ) => {
+        let copyOfInstr = Array.from(instructionOrder);
+        (copyOfInstr[index] as OneArgumentInstruction).arg = newArg;
+        setInstructionOrder(copyOfInstr);
+    }
+
+    const updateSixArgInstruction = (index: number, argsIndex: number, newVal : number) => {
+        let copyOfInstr = Array.from(instructionOrder);
+        (copyOfInstr[index] as SixArgumentInstruction).args[argsIndex] = newVal;
+        setInstructionOrder(copyOfInstr);
+    }
+
     const refs = InstructionTypes.map(_ => useRef<HTMLDivElement>(null));
 
     return (
@@ -52,11 +66,20 @@ const Dashboard : FC = () => {
                     // THE CURRENT SELECTED INSTRUCTIONS
                     instructionOrder.map((instr, idx) => (
                         SingleSelectedInstruction(
-                            {instr: instr, index: idx}
+                            {
+                                instr: instr, 
+                                index: idx,
+                                instructionOrder: instructionOrder,
+                                updateOneArg: updateOneArgInstruction,
+                                updateSixArg : updateSixArgInstruction,
+                            }
                         )
                     ))
                 }
             </div>
+            <button onClick={_ => console.log(instructionOrder)}>
+
+            </button>
         </div>
     )
 }

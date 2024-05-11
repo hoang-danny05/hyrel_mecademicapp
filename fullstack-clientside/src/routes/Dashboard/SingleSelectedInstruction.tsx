@@ -1,4 +1,4 @@
-import { Instruction, InstructionTypes } from "@/lib/Commands";
+import { Instruction, InstructionTypes, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands";
 import { ListOfArgTypes } from "@/lib/Commands";
 
 type StringToStyle = (arg1: string) => {innerColor:string, borderColor:string};
@@ -44,27 +44,36 @@ const getCSSClass : instrToClass = (instruction_name : string) => {
     }
 }
 
-const ArgumentBoxes = (instruction_name : string) => {
-    switch (getArgsOfInstruction(instruction_name)) {
+const ArgumentBoxes = (props: SingleSelectedProps) => {
+    switch (getArgsOfInstruction(props.instr.command)) {
         case (0) : {
             return (<></>)
         }
         case (1) : {
             return (
                 <div className="inputs">
-                    <input type="number" id="input-0" />
+                    <input 
+                        type="number" 
+                        id="input-0" 
+                        value={(props.instructionOrder[props.index] as OneArgumentInstruction).arg} 
+                        onChange={e => props.updateOneArg(props.index, Number.parseFloat(e.target.value))}
+                    />
                 </div>
             ) 
         }
         case (6) : {
             return (
                 <div className="inputs">
-                    <input type="number" id="input-1" />
-                    <input type="number" id="input-2" />
-                    <input type="number" id="input-3" />
-                    <input type="number" id="input-4" />
-                    <input type="number" id="input-5" />
-                    <input type="number" id="input-6" />
+                    {
+                        [0, 1, 2, 3, 4, 5].map(argsIndex => (
+                            <input 
+                                type="number" 
+                                className={`index-${argsIndex}`}
+                                value={(props.instructionOrder[props.index] as SixArgumentInstruction).args[argsIndex]}
+                                onChange={e => props.updateSixArg(props.index, argsIndex, Number.parseFloat((e.target as HTMLInputElement).value))}
+                            />
+                        ))
+                    }
                 </div>
             );
         }
@@ -74,7 +83,14 @@ const ArgumentBoxes = (instruction_name : string) => {
     }
 }
 
-const SingleSelectedInstruction = (props: {instr: Instruction, index: number}) => {
+type SingleSelectedProps = {
+    instr: Instruction, 
+    index: number, 
+    instructionOrder: Array<Instruction>,
+    updateOneArg: (index: number, newArg: number) => void,
+    updateSixArg: (index: number, argsIndex: number, newVal: number) => void
+};
+const SingleSelectedInstruction = (props: SingleSelectedProps) => {
 
     const style = getColorOfInstruction(props.instr.command)
     return (
@@ -86,7 +102,7 @@ const SingleSelectedInstruction = (props: {instr: Instruction, index: number}) =
         >
             {props.instr.command}
             {
-                ArgumentBoxes(props.instr.command)
+                ArgumentBoxes(props)
             }
         </div>
     )

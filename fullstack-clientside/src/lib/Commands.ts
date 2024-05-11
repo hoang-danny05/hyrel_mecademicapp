@@ -327,18 +327,18 @@ export const InstructionTypes : Array<InstructionType> = [
 // TYPES FOR UI INSTRUCTIONS 
 // ######################################################################
 
-type SixArgumentInstruction = {
+export type SixArgumentInstruction = {
     command: SixArgCommand,
     //take in six numbers :)
     args: [number, number, number, number, number, number]
 }
 
-type OneArgumentInstruction = {
+export type OneArgumentInstruction = {
     command: OneArgCommand,
     arg: number
 }
 
-type ZeroArgumentInstruction = {
+export type ZeroArgumentInstruction = {
     command: ZeroArgCommand
 }
 
