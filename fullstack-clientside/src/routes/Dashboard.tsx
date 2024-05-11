@@ -51,17 +51,17 @@ const Dashboard : FC = () => {
                     // THE MENU OF ALL OF THE INSTRUCTIONS YOU CAN CHOOSE
                     InstructionTypes.map((instruction_type, index: number) => {
                         return (
-                            <>
+                            <div key={instruction_type.type} className="instruction-submenu">
                                 <h2 ref={refs[index]} key={`${Math.random()}X`}>{instruction_type.type}</h2>
                                 {instruction_type.instructions.map(
                                     (instruction_name) =>
                                         InstructionChip(instruction_name, instruction_type.innerColor, appendInstruction)
                                 )}
-                            </>
+                            </div>
                         )
                     })
                 }
-                <div className="large-space">test mf</div>
+                <div className="large-space" key={"urmom"}></div>
             </div>
             {/* this element stores the current selected instructions */}
             <div className="instruction-order">

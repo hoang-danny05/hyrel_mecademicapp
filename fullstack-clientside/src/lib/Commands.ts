@@ -1,4 +1,71 @@
 //does stuff without getting stuff back
+
+export const ZeroArgList = [
+    "GripperOpen",
+    "GripperClose" ,
+    "ActivateRobot",
+    "ActivateSim" ,
+    "DeactivateSim",
+    "ClearMotion",
+    "DeactivateRobot",
+    "BrakesOn",
+    "BrakesOff",
+    "Home",
+    "PauseMotion",
+    "ResetError",
+    "ResetPStop",
+    "ResumeMotion",
+    "StopSaving",
+    "SwitchToEtherCAT",
+    "TCPDumpStop",
+    "GetFwVersion" ,
+    // "GetProductType",
+    // "GetRobotSerial",
+    //user defined values,
+    "GetAutoConf",
+    "GetAutoConfTurn",
+    "GetBlending",
+    "GetCartAcc",
+    "GetCartAngVel",
+    "GetCheckpoint",
+    "GetConf",
+    "GetConfTurn",
+    "GetGripperForce",
+    "GetGripperVel",
+    "GetJointAcc",
+    "GetJointLimitsCfg",
+    "GetJointVel",
+    "GetMonitoringInterval",
+    "GetNetworkOptions",
+    "GetRealTimeMonitoring",
+    "GetTourqueLimits",
+    "GetTourqueLimitsCfg",
+    "GetTRF",
+    "GetVelTimeout",
+    "GetWRF",
+    //real time data that we'll actually u,
+    "GetCmdPendingCount",
+    "GetJoints",
+    "GetPose",
+    "GetRTC",
+    "GetRtCartPos",
+    "GetRtCartVel",
+    "GetRtConf",
+    "GetRtConfTurn",
+    "GetRtJointPos",
+    "GetRtJointTorq",
+    "GetRtJointVel",
+    "GetRtTargetCartPos",
+    "GetRtTargetCartVel",
+    "GetRtTargetConf",
+    "GetRtTargetConfTurn",
+    "GetRtTargetJointPos",
+    "GetRtTargetJointVel",
+    "GetStatusGripper",
+    "GetStatusRobot",
+    "GetTorqueLimitsSatus"
+]
+
 export type ZeroArgCommand = 
     "GripperOpen" |
     "GripperClose" | 
@@ -67,6 +134,36 @@ export type ZeroArgRequest =
     "GetStatusRobot" |
     "GetTorqueLimitsSatus" 
 
+export const OneArgList = [
+    "Delay",
+    "GripperOpen",
+    // "SetAutoConf",
+    // "SetAutoConfTurn",
+    // "SetBlending",
+    // "SetCartAcc",
+    "SetCartAngVel",
+    "SetCartLinVel",
+    "SetCheckpoint",
+    "SetConfTurn",
+    "SetGripperForce",
+    "SetGripperVel",
+    "SetJointAcc",
+    "SetJointVel",
+    // "SetVelTimeout",
+    "EnableEtherNetIP",
+    // "GetModelJointLimits",
+    // "LogTrace",
+    // "SetEOB",
+    // "SetEOM",
+    // "SetJointLimitsCfg",
+    // "SetMonitoringInterval",
+    // "SetOfflineProgramLoop",
+    // "SetRTC",
+    // "StartProgram",
+    // "StartSaving",
+    "TCPDump" 
+]
+
 export type OneArgCommand = 
     "Delay" |
     "GripperOpen" |
@@ -100,6 +197,21 @@ export type OneArgRequest =
     "GetJointLimits" |
     "GetRtAccelerometer"
 
+export const SixArgList = [
+    "MoveJoints",
+    "MoveJointsVel",
+    "MoveLin",
+    "MoveLinRelTRF",
+    "MoveLinRelWRF",
+    "MoveLinVelTRF",
+    "MoveLinVelWRF",
+    "MovePose",
+    "SetTorqueLimit",
+    // "SetTRF",
+    // "SetWRF"
+    // "SetNetworkOptions"
+]
+
 export type SixArgCommand = 
     "MoveJoints" |
     "MoveJointsVel" |
@@ -113,6 +225,19 @@ export type SixArgCommand =
     // "SetTRF"
     // "SetWRF"
     // "SetNetworkOptions"
+
+type ArgList = {
+    numArgs: number,
+    list: Array<string>
+}
+export const ListOfTypes : Array<ArgList> = [
+    {
+        numArgs: 0,
+        list: ZeroArgList
+    },
+    {numArgs: 1, list: OneArgList},
+    {numArgs: 6, list: SixArgList}
+]
 // ######################################################################
 // LIST OF THE MAIN CATEGORIES OF COMMANDS
 // ######################################################################
