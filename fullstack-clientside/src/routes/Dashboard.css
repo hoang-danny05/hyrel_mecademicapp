@@ -1,7 +1,7 @@
 .dash {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: left;
     width: 100%;
     margin-top: 2rem;
 }
@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 2rem;
 }
 
 .single-instruction-type {
@@ -29,4 +30,50 @@
 
 .single-instruction-type::after {
     /* was going to have the color effect on hover */
+}
+
+/* another one */
+.instruction-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    gap: 1rem;
+
+    padding: 2rem;
+    overflow-y: scroll;
+    bottom: 0;
+    height: 80vh;
+}
+
+.instruction-menu > h2 {
+    font-weight: bold;
+    font-size: 18px;
+    margin: .5rem 2rem .5rem 2rem;
+}
+
+.instruction-menu .instruction-chip {
+    border-radius: 5px;
+    background-color: #444;
+    cursor: pointer;
+}
+
+/* Selected Instructions */
+
+.instruction-order {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    /* gap: 1rem; */
+}
+
+.instruction-order .single-selected-instruction {
+    border-left: 5px solid black;
+    padding: 0 .5rem 0 .5rem ;
+    background-color: #444;
+}
+
+/* OTHER */
+.large-space {
+    height: 100rem;
+    background-color: black;    
 }
