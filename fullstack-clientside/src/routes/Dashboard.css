@@ -1,3 +1,8 @@
+/* 
+####################################################3
+# TOP LEVEL 
+####################################################3
+*/
 .dash {
     display: flex;
     flex-direction: row;
@@ -10,6 +15,11 @@
     border: 1px solid white;
 }
 
+/* 
+####################################################3
+# The groups of instructions
+####################################################3
+*/
 /* left to right */
 .instruction-types {
     height: 40rem;
@@ -32,6 +42,11 @@
     /* was going to have the color effect on hover */
 }
 
+/* 
+####################################################3
+# the menu of instructions
+####################################################3
+*/
 /* another one */
 .instruction-menu {
     display: flex;
@@ -63,6 +78,11 @@
 }
 
 /* Selected Instructions */
+/* 
+####################################################3
+# what the customer has ordered from the instruction menu
+####################################################3
+*/
 
 .instruction-order {
     display: flex;
@@ -86,7 +106,23 @@
     width: 3rem;
     height: 1.25rem;
 }
-/* OTHER */
+/* 
+####################################################3
+# the console of stuff
+####################################################3
+*/
+
+.console-recieved #robot-recv {
+    position: relative;
+    display: block;
+    bottom: 0;
+    height: 30rem;
+}
+/* 
+####################################################3
+# OTHER
+####################################################3
+*/
 .large-space {
     display: block;
     flex-grow: 1;

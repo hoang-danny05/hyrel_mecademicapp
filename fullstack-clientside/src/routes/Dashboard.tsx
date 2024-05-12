@@ -4,8 +4,11 @@ import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstr
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
 import SelectableInstruction from "./Dashboard/SelectableInstruction"
 
+const PORT = 8080;
+
 const Dashboard : FC = () => {
     const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
+    const [IPAddress, setIPAddress] = useState<string>("127.0.0.1")
 
     const appendInstruction = (newInstruction : Instruction) => {
         setInstructionOrder([...instructionOrder, newInstruction])
@@ -77,9 +80,18 @@ const Dashboard : FC = () => {
                     ))
                 }
             </div>
-            <button onClick={_ => console.log(instructionOrder)}>
-
-            </button>
+            <div className="console">
+                <div className="console-buttons">
+                    <button onClick={_ => console.log(instructionOrder)}>echo instructions</button>
+                    <button onClick={_ => alert(1)}>template</button>
+                    <button onClick={_ => alert(1)}>Send Instructions</button>
+                    <label htmlFor="ip-address">IP:</label>
+                    <input value={IPAddress} onChange={e => setIPAddress(e.target.innerText)} id="ip-address"/>
+                </div>
+                <div className="console-recieved">
+                    <textarea name="robot-recv" id="robot-recv"></textarea>
+                </div>
+            </div>
         </div>
     )
 }

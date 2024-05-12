@@ -16,3 +16,14 @@ have python downloaded!
         - python -m venv venv
         - use the venv
 2) pip install requirements.txt
+
+## todo
+
+minimum viable:
+- [ ] TS: make code to send requests to the backend
+- [ ] TS: make the console funcitonal so it displays all robot messages
+
+optional:
+- [ ] CSS: make body and root fit into a specific size
+- [ ] TS: add moving instruction functionality
+- [ ] CSS: make it responsive to window size?
