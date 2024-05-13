@@ -21,7 +21,7 @@ li {
 li a {
     display: inline-block;
     position: relative;
-    background-color: #444;
+    /* background-color: #444; */
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
     transition: ease all .3s;
@@ -29,6 +29,19 @@ li a {
 
 li a:hover {
     background-color: #111;
+}
+
+@media (prefers-color-scheme :dark){
+    li a:hover{
+        background-color: #111;
+    }
+}
+
+@media (prefers-color-scheme :light){
+    li a:hover{
+        background-color: #c2c2c2;
+        color:rgb(70, 113, 169);
+    }
 }
 
 li a::after, li a::before {
@@ -39,6 +52,19 @@ li a::after, li a::before {
     bottom: 3px;
     width: 0;
     transition: ease .3s all;
+}
+
+@media (prefers-color-scheme :dark){
+    li a{
+        background-color: #444;
+    }
+}
+
+@media (prefers-color-scheme :light){
+    li a{
+        background-color: #efefef;
+        color:rgb(70, 113, 169);
+    }
 }
 
 li a:hover::after, li a:hover::before {
