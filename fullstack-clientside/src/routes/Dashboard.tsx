@@ -89,7 +89,7 @@ const Dashboard : FC = () => {
                 {
                     // THE CURRENT SELECTED INSTRUCTIONS
                     instructionOrder.map((instr, idx) => (
-                        <Reorder.Item as="div"  key={uuidv4()} value={instr}>
+                        <Reorder.Item as="div"  key={instr.key} value={instr}>
                             {SingleSelectedInstruction(
                             {
                                 instr: instr, 

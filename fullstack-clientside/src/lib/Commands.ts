@@ -1,4 +1,5 @@
 //does stuff without getting stuff back
+import {v4} from 'uuid';
 
 export const ZeroArgList = [
     "GripperOpen",
@@ -330,16 +331,19 @@ export const InstructionTypes : Array<InstructionType> = [
 export type SixArgumentInstruction = {
     command: SixArgCommand,
     //take in six numbers :)
-    args: [number, number, number, number, number, number]
+    args: [number, number, number, number, number, number],
+    key: string
 }
 
 export type OneArgumentInstruction = {
     command: OneArgCommand,
-    arg: number
+    arg: number,
+    key: string
 }
 
 export type ZeroArgumentInstruction = {
-    command: ZeroArgCommand
+    command: ZeroArgCommand,
+    key: string
 }
 
 export type Instruction = SixArgumentInstruction | OneArgumentInstruction | ZeroArgumentInstruction
