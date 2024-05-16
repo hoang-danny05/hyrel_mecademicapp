@@ -1,7 +1,9 @@
 import {Outlet, Link} from "react-router-dom"
 import "./Layout.css"
+import useWindowDimensions from "./lib/useWindowDimensions"
 
 const Layout = () => {
+    const {width, height} = useWindowDimensions();
     return (
         <>
             <nav>
@@ -10,9 +12,9 @@ const Layout = () => {
                     <li><Link to={"/dashboard"}>Dashboard</Link></li>
                     <li><Link to={"/grid"}>Grid</Link></li>
                     <li><Link to={"/test"}>test 404</Link></li>
-                    {window.innerWidth}
+                    {width}
                     x
-                    {window.innerHeight}
+                    {height}
                 </ul>
             </nav>
 

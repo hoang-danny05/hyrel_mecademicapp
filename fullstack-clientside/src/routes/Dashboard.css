@@ -47,7 +47,7 @@
 .instruction-type-menu-button {
     position: absolute;
     top: 0;
-    /* display: none; */
+    display: none;
 }
 
 @media screen and (max-width: 950px) {
@@ -57,6 +57,10 @@
         /* background-color: var(--background); */
         background-color: #333;
         z-index: 10;
+    }
+
+    .instruction-type-menu-button {
+        display: block;
     }
 }
 
@@ -135,6 +139,13 @@
     gap: 1rem;
 }
 
+@media screen and (max-width: 770px) {
+    /* make it so that the inputs take two columns now */
+    .instruction-order {
+        width: auto;
+    }
+}
+
 .single-selected-instruction input {
     width: 3rem;
     height: 1.25rem;
@@ -145,9 +156,15 @@
 ####################################################3
 */
 .console {
-    width: 20rem;
+    width: 31rem;
     height: calc(90vh - 10vh - 1vw - 18px);
     float: left;
+}
+
+@media screen and (max-width: 1440px) {
+    .console {
+        width: 100%;
+    }
 }
 
 .console-recieved #robot-recv {

@@ -4,11 +4,16 @@ import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstr
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
 import SelectableInstruction from "./Dashboard/SelectableInstruction"
 import { Menu } from "lucide-react"
+import useWindowDimensions from "@/lib/useWindowDimensions"
 
 const PORT = 8080;
 
 const Dashboard : FC = () => {
-    const [menuExpanded, setMenuExpanded] = useState(window.innerWidth > 950);
+    //style
+    const {width} = useWindowDimensions();
+    const [menuExpanded, setMenuExpanded] = useState(false);
+
+    //functionality
     const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
     const [IPAddress, setIPAddress] = useState<string>("127.0.0.1")
 
@@ -37,7 +42,7 @@ const Dashboard : FC = () => {
                     <Menu />
                 </button>
             </div>
-            <div className="instruction-types" style={menuExpanded ? {} : {display: "none"}}>
+            <div className="instruction-types" style={(!menuExpanded && width < 950) ? {display: "none"} : {}}>
             {
                 // THE GROUPS OF INSTRUCTIONS YOU CAN DO
                 InstructionTypes.map((item, index : number) => (
