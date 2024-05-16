@@ -29,6 +29,7 @@
 
     padding: 2rem;
 
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -41,6 +42,22 @@
     cursor: pointer;
     margin-bottom: .5rem;
     transition: all 0.3s;
+}
+
+.instruction-type-menu-button {
+    position: absolute;
+    top: 0;
+    /* display: none; */
+}
+
+@media screen and (max-width: 950px) {
+    .instruction-types {
+        /* display: none; */
+        position: absolute;
+        /* background-color: var(--background); */
+        background-color: #333;
+        z-index: 10;
+    }
 }
 
 /* 
@@ -99,6 +116,8 @@
     width: 35rem;
     float: left;
 
+    overflow: scroll;
+    
     display: flex;
     flex-direction: column;
     padding: 2rem;

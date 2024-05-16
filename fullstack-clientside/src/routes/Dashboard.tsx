@@ -3,10 +3,12 @@ import { FC, useState, useRef } from 'react'
 import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands"
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
 import SelectableInstruction from "./Dashboard/SelectableInstruction"
+import { Menu } from "lucide-react"
 
 const PORT = 8080;
 
 const Dashboard : FC = () => {
+    const [menuExpanded, setMenuExpanded] = useState(window.innerWidth > 950);
     const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
     const [IPAddress, setIPAddress] = useState<string>("127.0.0.1")
 
@@ -30,7 +32,12 @@ const Dashboard : FC = () => {
 
     return (
         <div className="dash">
-            <div className="instruction-types">
+            <div className="instruction-type-menu-button">
+                <button onClick={_ => setMenuExpanded(!menuExpanded)}>
+                    <Menu />
+                </button>
+            </div>
+            <div className="instruction-types" style={menuExpanded ? {} : {display: "none"}}>
             {
                 // THE GROUPS OF INSTRUCTIONS YOU CAN DO
                 InstructionTypes.map((item, index : number) => (
