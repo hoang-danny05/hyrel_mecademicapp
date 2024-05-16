@@ -3,7 +3,8 @@
 }
 
 nav {
-    /* background-color: blue; */
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
 ul {
@@ -19,11 +20,15 @@ li {
 }
 
 li a {
-    display: inline-block;
     position: relative;
+    display: inline-block;
+
     background-color: #444;
-    padding: 5px 20px 5px 20px;
+    padding: .5vw 1.5vw .5vw 1.5vw;
     border-radius: 5px;
+
+    font-size: 18px;
+
     transition: ease all .3s;
 }
 

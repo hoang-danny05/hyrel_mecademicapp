@@ -4,17 +4,18 @@
 ####################################################3
 */
 .dash {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* justify-content: left; */
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 5vh;
 }
 
 .dash > * {
     border: 1px solid white;
 }
 
+/* 1440 width minimum */
 /* 
 ####################################################3
 # The groups of instructions
@@ -22,11 +23,15 @@
 */
 /* left to right */
 .instruction-types {
-    height: 40rem;
+    width: 11rem;
+    height: calc(90vh - 10vh - 1vw - 18px);
+    float: left;
+
+    padding: 2rem;
+
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem;
 }
 
 .single-instruction-type {
@@ -38,10 +43,6 @@
     transition: all 0.3s;
 }
 
-.single-instruction-type::after {
-    /* was going to have the color effect on hover */
-}
-
 /* 
 ####################################################3
 # the menu of instructions
@@ -49,13 +50,18 @@
 */
 /* another one */
 .instruction-menu {
+    /* nav.margin-top nav.margin-bottom, nav.a.padding, nav.font-size */
+    height: calc(90vh - 10vh - 1vw - 18px);
+    /* height: 50vh; */
+    width: 13rem;
+    float: left;
+
     display: flex;
     flex-direction: column;
     justify-content: safe center;
 
     padding: 2rem;
     overflow-y: scroll;
-    height: 80vh;
 }
 
 .instruction-submenu {
@@ -63,12 +69,15 @@
     flex-direction: column;
     justify-content: safe center;
     gap: .5rem;
+
+    font-size: 15px;
 }
 
 .instruction-menu h2 {
+    margin: .5rem 2rem .5rem 2rem;
+
     font-weight: bold;
     font-size: 18px;
-    margin: .5rem 2rem .5rem 2rem;
 }
 
 .instruction-menu .instruction-chip {
@@ -85,6 +94,11 @@
 */
 
 .instruction-order {
+    /* height: 80vh; */
+    height: calc(90vh - 10vh - 1vw - 18px);
+    width: 35rem;
+    float: left;
+
     display: flex;
     flex-direction: column;
     padding: 2rem;
@@ -111,12 +125,17 @@
 # the console of stuff
 ####################################################3
 */
+.console {
+    width: 20rem;
+    height: calc(90vh - 10vh - 1vw - 18px);
+    float: left;
+}
 
 .console-recieved #robot-recv {
     position: relative;
     display: block;
     bottom: 0;
-    height: 30rem;
+    height: 15rem;
 }
 /* 
 ####################################################3

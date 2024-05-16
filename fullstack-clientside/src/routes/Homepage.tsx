@@ -89,7 +89,7 @@ const Homepage = () => {
       <h1>Mecademic Robot App</h1>
       <div className="status">RobotConnection, RobotActivated</div>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => setCount(count + 1)}>
           count is {count}
         </button>
         {connected

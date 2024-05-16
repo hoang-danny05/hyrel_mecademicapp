@@ -10,6 +10,9 @@ const Layout = () => {
                     <li><Link to={"/dashboard"}>Dashboard</Link></li>
                     <li><Link to={"/grid"}>Grid</Link></li>
                     <li><Link to={"/test"}>test 404</Link></li>
+                    {window.innerWidth}
+                    x
+                    {window.innerHeight}
                 </ul>
             </nav>
 

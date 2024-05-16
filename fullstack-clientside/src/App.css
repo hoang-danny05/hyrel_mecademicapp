@@ -1,15 +1,13 @@
 #root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* max-width: 1280px; */
-  padding: 2rem;
-  text-align: center;
-  /* temporary fix */
-  /* width: 80% */
   width: 100%;
   left: 0;
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  text-align: center;
 }
 
 .logo {
