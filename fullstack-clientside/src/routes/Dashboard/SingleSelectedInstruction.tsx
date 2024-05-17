@@ -94,7 +94,7 @@ const SingleSelectedInstruction = (props: SingleSelectedProps) => {
 
     const style = getColorOfInstruction(props.instr.command)
     return (
-        <div 
+        <li 
             className={`single-selected-instruction ${getCSSClass(props.instr.command)}`}
             style={style}
             key={Math.random()}
@@ -104,7 +104,7 @@ const SingleSelectedInstruction = (props: SingleSelectedProps) => {
             {
                 ArgumentBoxes(props)
             }
-        </div>
+        </li>
     )
 }
 

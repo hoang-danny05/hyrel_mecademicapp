@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 const Grid = () => {
     return (
         <>
-        <Button>test</Button>
+        <Button onClick={() => console.log('click')}>test</Button>
         <h1>ROBOT LAYOUT</h1>
         <div className="robot_layout">
             <div className="space">empty</div>

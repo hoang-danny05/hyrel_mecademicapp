@@ -1,4 +1,6 @@
 import "./Dashboard.css"
+import { Reorder } from "framer-motion"
+import { v4 as uuidv4 } from 'uuid';
 import { FC, useState, useRef } from 'react'
 import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands"
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
@@ -75,8 +77,10 @@ const Dashboard : FC = () => {
                 }
                 <div className="large-space" key={"urmom"}></div>
             </div>
+
+            
             {/* this element stores the current selected instructions */}
-            <div className="instruction-order">
+            {/* <div className="instruction-order">
                 {
                     // THE CURRENT SELECTED INSTRUCTIONS
                     instructionOrder.map((instr, idx) => (
@@ -91,7 +95,33 @@ const Dashboard : FC = () => {
                         )
                     ))
                 }
-            </div>
+            </div> */}
+
+            <Reorder.Group as="div" className="instruction-order" axis="y" values={instructionOrder} onReorder={setInstructionOrder}>
+                {
+                    // THE CURRENT SELECTED INSTRUCTIONS
+                    instructionOrder.map((instr, idx) => (
+                        <Reorder.Item as="div"  key={instr.key} value={instr}>
+                            {SingleSelectedInstruction(
+                            {
+                                instr: instr, 
+                                index: idx,
+                                instructionOrder: instructionOrder,
+                                updateOneArg: updateOneArgInstruction,
+                                updateSixArg : updateSixArgInstruction,
+                            }
+                        )}
+                        </Reorder.Item>
+                        
+                    ))
+                }
+            </Reorder.Group>
+
+
+
+
+
+
             <div className="console">
                 <div className="console-buttons">
                     <button onClick={_ => console.log(instructionOrder)}>echo instructions</button>
