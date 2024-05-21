@@ -1,19 +1,43 @@
 import "./Dashboard.css"
 import { Reorder } from "framer-motion"
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { FC, useState, useRef } from 'react'
 import { InstructionTypes, Instruction, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands"
 import SingleSelectedInstruction from "./Dashboard/SingleSelectedInstruction"
 import SelectableInstruction from "./Dashboard/SelectableInstruction"
 
-const PORT = 8080;
+// const PORT = 8080;
+
+// const testSend = (sumth : Array<Instruction>) => {
+        // sumth.forEach( thing =>{alert(thing)})
+    // }
 
 const Dashboard : FC = () => {
     const [instructionOrder, setInstructionOrder] = useState<Array<Instruction>>([])
     const [IPAddress, setIPAddress] = useState<string>("127.0.0.1")
 
+    // const testSend = () => {
+    //     instructionOrder.forEach( thing =>{
+    //         console.log(thing)
+    //     }   
+
+    //     )
+    // }
+    const testSend = () => {
+        instructionOrder.forEach(item => console.log(item))
+    }
+
     const appendInstruction = (newInstruction : Instruction) => {
         setInstructionOrder([...instructionOrder, newInstruction])
+    }
+
+    const removeInstruction = (removeindex : number) => {
+        const newarr = instructionOrder.filter((inztr, idx) =>{
+            if(idx !== removeindex)
+                return inztr
+        })
+
+        setInstructionOrder(newarr);
     }
 
     const updateOneArgInstruction = (index: number, newArg: number ) => {
@@ -53,7 +77,7 @@ const Dashboard : FC = () => {
                     // THE MENU OF ALL OF THE INSTRUCTIONS YOU CAN CHOOSE
                     InstructionTypes.map((instruction_type, index: number) => {
                         return (
-                            <div key={instruction_type.type} className="instruction-submenu">
+                            <div key={index} className="instruction-submenu">
                                 <h2 ref={refs[index]} key={`${Math.random()}X`}>{instruction_type.type}</h2>
                                 {instruction_type.instructions.map(
                                     (instruction_name) =>
@@ -97,6 +121,7 @@ const Dashboard : FC = () => {
                                 instructionOrder: instructionOrder,
                                 updateOneArg: updateOneArgInstruction,
                                 updateSixArg : updateSixArgInstruction,
+                                removeInstr: removeInstruction,
                             }
                         )}
                         </Reorder.Item>
@@ -114,7 +139,7 @@ const Dashboard : FC = () => {
                 <div className="console-buttons">
                     <button onClick={_ => console.log(instructionOrder)}>echo instructions</button>
                     <button onClick={_ => alert(1)}>template</button>
-                    <button onClick={_ => alert(1)}>Send Instructions</button>
+                    <button onClick={_ => testSend()}>Send Instructions</button>
                     <label htmlFor="ip-address">IP:</label>
                     <input value={IPAddress} onChange={e => setIPAddress(e.target.innerText)} id="ip-address"/>
                 </div>

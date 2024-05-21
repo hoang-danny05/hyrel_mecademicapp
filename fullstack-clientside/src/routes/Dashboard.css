@@ -158,6 +158,21 @@
     bottom: 0;
     height: 30rem;
 }
+
+/*X button??*/
+.ico-times{
+    font: normal 1em/1 Arial, sans-serif;
+  display: inline-block;
+  background: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    /* height: 2em; */
+    /* width:em; */
+}
+
+.ico-times::before { content: "\2716"; }
 /* 
 ####################################################3
 # OTHER

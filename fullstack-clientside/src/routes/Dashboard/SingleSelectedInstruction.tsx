@@ -1,5 +1,6 @@
 import { Instruction, InstructionTypes, OneArgumentInstruction, SixArgumentInstruction } from "@/lib/Commands";
 import { ListOfArgTypes } from "@/lib/Commands";
+import { useState } from 'react'
 
 type StringToStyle = (arg1: string) => {innerColor:string, borderColor:string};
 
@@ -67,6 +68,7 @@ const ArgumentBoxes = (props: SingleSelectedProps) => {
                     {
                         [0, 1, 2, 3, 4, 5].map(argsIndex => (
                             <input 
+                            //implement min/max?
                                 type="number" 
                                 className={`index-${argsIndex}`}
                                 value={(props.instructionOrder[props.index] as SixArgumentInstruction).args[argsIndex]}
@@ -88,7 +90,8 @@ type SingleSelectedProps = {
     index: number, 
     instructionOrder: Array<Instruction>,
     updateOneArg: (index: number, newArg: number) => void,
-    updateSixArg: (index: number, argsIndex: number, newVal: number) => void
+    updateSixArg: (index: number, argsIndex: number, newVal: number) => void,
+    removeInstr: (hmm : number) => void,
 };
 const SingleSelectedInstruction = (props: SingleSelectedProps) => {
 
@@ -104,6 +107,7 @@ const SingleSelectedInstruction = (props: SingleSelectedProps) => {
             {
                 ArgumentBoxes(props)
             }
+            <button className="ico-times" onClick={event => props.removeInstr(props.index)}></button>
         </li>
     )
 }
