@@ -64,10 +64,10 @@ def reset_error():
 ###########################################################
 # general command thing
 ###########################################################
-from RequestModel import ZeroArgCommandBody, checkZeroArgCommand
+from RequestModel import ZeroArgBody, checkZeroArgCommand
 
 @app.post("/robot/ZeroArgCommand")
-async def ZeroArgCommand(cmd: ZeroArgCommandBody):
+async def ZeroArgCommand(cmd: ZeroArgBody):
     result = checkZeroArgCommand(cmd)
     if result["success"]:
         cmd = f"{cmd.name}()"
@@ -76,10 +76,10 @@ async def ZeroArgCommand(cmd: ZeroArgCommandBody):
     else:
         return {"success": False, "error": str(result["error"])}
 
-from RequestModel import ZeroArgRequestBody, checkZeroArgRequest
+from RequestModel import ZeroArgBody, checkZeroArgRequest
 
 @app.post("/robot/ZeroArgRequest")
-async def ZeroArgRequest(cmd: ZeroArgRequestBody):
+async def ZeroArgRequest(cmd: ZeroArgBody):
     result = checkZeroArgRequest(cmd)
     if result["success"]:
         cmd = f"{cmd.name}()"
@@ -88,10 +88,10 @@ async def ZeroArgRequest(cmd: ZeroArgRequestBody):
     else:
         return {"success": False, "error": str(result["error"])}
 
-from RequestModel import OneArgCommandBody, checkOneArgCommand
+from RequestModel import OneArgBody, checkOneArgCommand
 
 @app.post("/robot/OneArgCommand")
-async def OneArgCommand(cmd: OneArgCommandBody):
+async def OneArgCommand(cmd: OneArgBody):
     result = checkOneArgCommand(cmd)
     if result["success"]:
         cmd = f"{cmd.name}()"
@@ -100,10 +100,10 @@ async def OneArgCommand(cmd: OneArgCommandBody):
     else:
         return {"success": False, "error": str(result["error"])}
 
-from RequestModel import OneArgRequestBody, checkOneArgRequest
+from RequestModel import OneArgBody, checkOneArgRequest
 
 @app.post("/robot/OneArgRequest")
-async def OneArgRequest(cmd: OneArgRequestBody):
+async def OneArgRequest(cmd: OneArgBody):
     result = checkOneArgRequest(cmd)
     if result["success"]:
         cmd = f"{cmd.name}()"
@@ -112,10 +112,10 @@ async def OneArgRequest(cmd: OneArgRequestBody):
     else:
         return {"success": False, "error": str(result["error"])}
 
-from RequestModel import SixArgCommandBody, checkSixArgCommand
+from RequestModel import SixArgBody, checkSixArgCommand
 
 @app.post("/robot/SixArgCommand")
-async def run_sixarg_command(cmd: SixArgCommandBody):
+async def run_sixarg_command(cmd: SixArgBody):
     result = checkSixArgCommand(cmd)
     if result["success"]:
         cmd = f"robot.{cmd.name}({cmd.arguments[0]},{cmd.arguments[1]},{cmd.arguments[2]},{cmd.arguments[3]},{cmd.arguments[4]},{cmd.arguments[5]})"

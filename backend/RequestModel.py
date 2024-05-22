@@ -22,10 +22,10 @@ ZeroArgCommand = [
     #"TCPDumpStop" 
 ]
 
-class ZeroArgCommandBody(BaseModel):
+class ZeroArgBody(BaseModel):
     name: str
 
-def checkZeroArgCommand(body: ZeroArgCommandBody):
+def checkZeroArgCommand(body: ZeroArgBody):
     try: 
         assert body.name in ZeroArgCommand, "Invalid Zero Argument command! Not adding to commands."
     except AssertionError as errmsg: 
@@ -80,12 +80,9 @@ ZeroArgRequest = [
     "GetTorqueLimitsSatus" 
 ]
 
-class ZeroArgRequestBody(BaseModel):
-    name: str
-
-def checkZeroArgRequest(body: ZeroArgRequestBody):
+def checkZeroArgRequest(body: ZeroArgBody):
     try: 
-        assert body.name in ZeroArgRequest, "Invalid One Argument request!! Not adding to commands."
+        assert body.name in ZeroArgRequest, "Invalid One Argument request!!"
     except AssertionError as errmsg: 
         return {"success": False, "error": errmsg}
     return {"success": True}
@@ -120,11 +117,11 @@ OneArgCommand = [
     # "TCPDump" 
 ]
 
-class OneArgCommandBody(BaseModel):
+class OneArgBody(BaseModel):
     name: str
     argument: int
 
-def checkOneArgCommand(body: OneArgCommandBody):
+def checkOneArgCommand(body: OneArgBody):
     try: 
         assert body.name in OneArgCommand, "Invalid One Argument command! Not adding to commands."
     except AssertionError as errmsg: 
@@ -136,13 +133,9 @@ OneArgRequest = [
     "GetRtAccelerometer"
 ]
 
-class OneArgRequestBody(BaseModel):
-    name: str
-    argument: int
-
-def checkOneArgRequest(body: OneArgRequestBody):
+def checkOneArgRequest(body: OneArgBody):
     try: 
-        assert body.name in OneArgRequest, "Invalid One Argument request! Not adding to commands."
+        assert body.name in OneArgRequest, "Invalid One Argument request!"
     except AssertionError as errmsg: 
         return {"success": False, "error": errmsg}
     return {"success": True}
@@ -163,14 +156,15 @@ SixArgCommand = [
     # // "SetNetworkOptions"
 ]
 
-class SixArgCommandBody(BaseModel):
+class SixArgBody(BaseModel):
     name: str
     arguments: List[float]
 
-def checkSixArgCommand(body: SixArgCommandBody):
+def checkSixArgCommand(body: SixArgBody):
     try: 
         assert body.name in SixArgCommand, "Invalid Six Argument command! Not adding to commands."
         assert len(body.arguments) == 6, "Invalid amount of arguments!"
     except AssertionError as errmsg: 
         return {"success": False, "error": errmsg}
     return {"success": True}
+
