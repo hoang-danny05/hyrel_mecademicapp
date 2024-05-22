@@ -1,4 +1,4 @@
-# Hyrel's Mecademic Applicatoin 
+# Hyrel's Mecademic Application
 Using the mecadmic api normally is too troublesome! This app is made to interface with a Python app to provide a great gui for mecadmic robot automation.
 
 ## Installation
@@ -8,6 +8,7 @@ Using the mecadmic api normally is too troublesome! This app is made to interfac
 3) Install all nodejs dependencies
     - npm i  
 4) npx vite or npm run dev
+5) visit the website!
 
 
 ## running the backend
@@ -16,14 +17,15 @@ have python downloaded!
         - python -m venv venv
         - use the venv
 2) pip install requirements.txt
+3) uvicorn main:app 
 
 ## todo
 
 minimum viable:
 - [ ] TS: make code to send requests to the backend
-- [ ] TS: make the console funcitonal so it displays all robot messages
+- [ ] TS: make the console functional so it displays all robot messages
 
 optional:
 - [ ] CSS: make body and root fit into a specific size
-- [ ] TS: add moving instruction functionality
+- [X] TS: add moving instruction functionality
 - [ ] CSS: make it responsive to window size?
